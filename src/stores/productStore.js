@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { fetchAllCategories, fetchAllProducts, searchProductsByQuery } from '../services/productService';
+import { fetchAllCategories, fetchAllProducts, fetchProductDataById, searchProductsByQuery } from '../services/productService';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -7,9 +7,13 @@ class ProductStore {
   // Listing Page States
   allProducts = [];
   allCategories = [];
-  selectedProduct = null;
   loading = false;
   error = null;
+  
+  // Detail Page States
+  selectedProduct = null;
+  detailLoading = false;
+  detailError = null;
 
   // Filter Panel Constants
   selectedCategories = [];
@@ -52,15 +56,6 @@ class ProductStore {
     if (!isNaN(max)) {
       list = list.filter(p => p.price <= max);
     }
-
-    // if (this.searchQuery.trim()) {
-    //   const q = this.searchQuery.toLowerCase();
-
-    //   list = list.filter(p =>
-    //     p.title.toLowerCase().includes(q) ||
-    //     (p.description || '').toLowerCase().includes(q)
-    //   )
-    // }
 
     return list;
   }
@@ -175,6 +170,25 @@ class ProductStore {
       runInAction(() => {
         this.error = err.message;
         this.loading = false;
+      })
+    }
+  }
+
+  // Load single product details by ID
+  fetchProductDataById = async (id) => {
+    this.detailLoading = true;
+    this.detailError = null;
+    this.selectedProduct = null;
+    try {
+      const data = await fetchProductDataById(id);
+      runInAction(() => {
+        this.selectedProduct = data;
+        this.detailLoading = false;
+      })
+    } catch (err) {
+      runInAction(() => {
+        this.detailError = err.message;
+        this.detailLoading = false;
       })
     }
   }

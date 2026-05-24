@@ -15,6 +15,19 @@ class AppConstants {
     static FOUND_POSTFIX = 'found';
     static FILTERS_LABEL = "Filters";
 
+    // ProductDetail Page Constants
+    static PRODUCT_DETAIL_LOADING_TEXT = "Loading product details...";
+    static BACK_LABEL = "Back";
+    static BRAND_HEADER = "Brand";
+    static CATEGORY_HEADER = "Category";
+    static IN_STOCK_POSTFIX = "in stock";
+    static OUT_OF_STOCK_POSTFIX = "Out of stock";
+    static DESCRIPTION_HEADER = "Description";
+    static REVIEWS_HEADER = "Reviews";
+    static ADD_TO_CART_LABEL = "Add to Cart";
+    static ADD_TO_WISHLIST_LABEL = "Add to Wishlist";
+    static MORE_IMAGES_LABEL = "More Images";
+
     // FilterPanel Constants
     static CLEAR_LABEL = "Clear Filters";
     static CATEGORIES_HEADER = "Categories";

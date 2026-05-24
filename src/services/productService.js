@@ -32,3 +32,14 @@ export const searchProductsByQuery = async (query) => {
 
   return res.json();
 }
+
+// fetch single product details by ID
+export const fetchProductDataById = async (id) => {
+  const res = await fetch(`${BASE_URL}/products/${id}`);
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch product');
+  }
+
+  return res.json();
+}
