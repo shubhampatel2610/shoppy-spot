@@ -4,6 +4,7 @@ import productStore from '../stores/productStore';
 import ProductGrid from '../components/ProductGrid/ProductGrid';
 import AppConstants from '../utils/AppConstants';
 import FilterPanel from '../components/FilterPanel/FilterPanel';
+import Pagination from '../components/Pagination/Pagination';
 
 const ProductListingPage = observer(() => {
   useEffect(() => {
@@ -19,7 +20,7 @@ const ProductListingPage = observer(() => {
     <main className="max-w-7xl mx-auto px-4 py-6">
       <div className="flex gap-5">
         {/* Filter Panel */}
-        <div className="hidden md:block w-56 flex-shrink-0">
+        <div className="hidden md:block w-56 shrink-0">
           <FilterPanel />
         </div>
 
@@ -35,6 +36,9 @@ const ProductListingPage = observer(() => {
 
           {/* Product Grid */}
           <ProductGrid />
+
+          {/* Pagination */}
+          <Pagination />
         </div>
       </div>
     </main>

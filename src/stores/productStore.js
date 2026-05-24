@@ -1,6 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { fetchAllCategories, fetchAllProducts } from '../services/productService';
 
+const ITEMS_PER_PAGE = 8;
+
 class ProductStore {
   // Listing Page States
   allProducts = [];
@@ -15,16 +17,57 @@ class ProductStore {
   minPrice = '';
   maxPrice = '';
   searchQuery = '';
-  hasActiveFilters = this.selectedCategories.length > 0 ||
-    this.selectedBrands.length > 0 ||
-    this.minPrice ||
-    this.maxPrice;
+
+  get hasActiveFilters() {
+    return this.selectedCategories.length > 0 ||
+      this.selectedBrands.length > 0 ||
+      this.minPrice ||
+      this.maxPrice;
+  }
 
   // Pagination States
-  currentPage = 1
+  currentPage = 1;
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  get filteredProducts() {
+    let list = [...this.allProducts];
+
+    if (this.selectedCategories.length > 0) {
+      list = list.filter(p => this.selectedCategories.includes(p.category));
+    }
+
+    if (this.selectedBrands.length > 0) {
+      list = list.filter(p => this.selectedBrands.includes(p.brand));
+    }
+
+    const min = parseFloat(this.minPrice);
+    if (!isNaN(min)) {
+      list = list.filter(p => p.price >= min);
+    }
+
+    const max = parseFloat(this.maxPrice);
+    if (!isNaN(max)) {
+      list = list.filter(p => p.price <= max);
+    }
+
+    if (this.searchQuery.trim()) {
+      const q = this.searchQuery.toLowerCase();
+
+      list = list.filter(p =>
+        p.title.toLowerCase().includes(q) ||
+        (p.description || '').toLowerCase().includes(q)
+      )
+    }
+
+    return list;
+  }
+
+  get paginatedProducts() {
+    const start = (this.currentPage - 1) * ITEMS_PER_PAGE;
+    return this.filteredProducts.slice(start, start + ITEMS_PER_PAGE);
   }
 
   // Filter Panel Actions
@@ -54,6 +97,20 @@ class ProductStore {
     return [...new Set(brands)].sort();
   }
 
+  setSearchQuery = (query) => {
+    this.searchQuery = query
+    this.currentPage = 1
+  }
+
+  toggleCategory = (slug) => {
+    if (this.selectedCategories.includes(slug)) {
+      this.selectedCategories = this.selectedCategories.filter(c => c !== slug)
+    } else {
+      this.selectedCategories = [...this.selectedCategories, slug]
+    }
+    this.currentPage = 1
+  }
+
   toggleBrand = (brand) => {
     if (this.selectedBrands.includes(brand)) {
       this.selectedBrands = this.selectedBrands.filter(b => b !== brand);
@@ -61,6 +118,15 @@ class ProductStore {
       this.selectedBrands = [...this.selectedBrands, brand];
     }
     this.currentPage = 1;
+  }
+
+  // Pagination Actions
+  setPage = (page) => {
+    this.currentPage = page
+  }
+
+  get totalPages() {
+    return Math.ceil(this.filteredProducts.length / ITEMS_PER_PAGE)
   }
 
   // Load all products (used for client-side filtering)
