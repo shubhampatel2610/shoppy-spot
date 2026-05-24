@@ -9,6 +9,11 @@ class AppConstants {
 
     // ProductListing Page Constants
     static ALL_PRODUCTS_HEADER = "All Products";
+    static FILTERED_PRODUCTS_HEADER = "Filtered Products";
+    static SINGULAR_PRODUCT_LABEL = "product";
+    static PLURAL_PRODUCT_LABEL = "products";
+    static FOUND_POSTFIX = 'found';
+    static FILTERS_LABEL = "Filters";
 
     // FilterPanel Constants
     static CLEAR_LABEL = "Clear Filters";
