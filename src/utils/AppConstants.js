@@ -42,6 +42,10 @@ class AppConstants {
 
     // ProductGrid Constants
     static PRODUCT_LOADING_TEXT = "Fetching products...";
+
+    // Pagination Constants
+    static PREVIOUS_LABEL = "Previous";
+    static NEXT_LABEL = "Next";
 }
 
 export default AppConstants;

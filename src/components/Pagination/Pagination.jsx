@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import productStore from '../../stores/productStore';
+import AppConstants from '../../utils/AppConstants';
 
 const Pagination = observer(() => {
   const { currentPage, totalPages, setPage } = productStore;
@@ -51,6 +52,7 @@ const Pagination = observer(() => {
         className={`${btnBase} border border-gray-200 text-gray-600 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed px-3 h-8 gap-1`}
       >
         <i className="pi pi-chevron-left text-xs" />
+        {AppConstants.PREVIOUS_LABEL}
       </button>
 
       {/* Page numbers */}
@@ -79,6 +81,7 @@ const Pagination = observer(() => {
         disabled={currentPage === totalPages}
         className={`${btnBase} border border-gray-200 text-gray-600 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed px-3 h-8 gap-1`}
       >
+        {AppConstants.NEXT_LABEL}
         <i className="pi pi-chevron-right text-xs" />
       </button>
     </div>
