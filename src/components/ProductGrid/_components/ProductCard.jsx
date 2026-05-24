@@ -17,9 +17,6 @@ const ProductCard = (props) => {
                     src={product.thumbnail}
                     alt={product.title}
                     className="h-full w-full object-contain group-hover:scale-105 transition-transform duration-300 p-3"
-                    onError={e => {
-                        e.target.src = 'https://via.placeholder.com/200?text=No+Image'
-                    }}
                 />
             </div>
 
