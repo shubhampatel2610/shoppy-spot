@@ -9,9 +9,18 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f1f1; }
-::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
 
 /* ---------- PrimeReact Style Fixes ---------- */
 
@@ -130,4 +139,21 @@ body {
 
 .p-button .p-button-icon {
   font-size: 0.875rem !important;
+}
+
+/* Star Rating Styles */
+.p-rating {
+  gap: 4px !important;
+
+  svg {
+    width: 16px !important;
+    height: 16px !important;
+    color: #d1d5db !important;
+  }
+
+  .p-rating-item-active {
+    svg {
+      color: #fbbf24 !important;
+    }
+  }
 }
