@@ -6,11 +6,61 @@ class ProductStore {
   allProducts = [];
   allCategories = [];
   selectedProduct = null;
-  loading = false
-  error = null
+  loading = false;
+  error = null;
+
+  // Filter Panel Constants
+  selectedCategories = [];
+  selectedBrands = [];
+  minPrice = '';
+  maxPrice = '';
+  searchQuery = '';
+  hasActiveFilters = this.selectedCategories.length > 0 ||
+    this.selectedBrands.length > 0 ||
+    this.minPrice ||
+    this.maxPrice;
+
+  // Pagination States
+  currentPage = 1
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  // Filter Panel Actions
+  setMinPrice = (value) => {
+    this.minPrice = value
+  }
+
+  setMaxPrice = (value) => {
+    this.maxPrice = value
+  }
+
+  resetPage = () => {
+    this.currentPage = 1
+  }
+
+  clearFilters = () => {
+    this.selectedCategories = []
+    this.selectedBrands = []
+    this.minPrice = ''
+    this.maxPrice = ''
+    this.searchQuery = ''
+    this.currentPage = 1
+  }
+
+  get availableBrands() {
+    const brands = this.allProducts.map(p => p.brand).filter(Boolean);
+    return [...new Set(brands)].sort();
+  }
+
+  toggleBrand = (brand) => {
+    if (this.selectedBrands.includes(brand)) {
+      this.selectedBrands = this.selectedBrands.filter(b => b !== brand);
+    } else {
+      this.selectedBrands = [...this.selectedBrands, brand];
+    }
+    this.currentPage = 1;
   }
 
   // Load all products (used for client-side filtering)
