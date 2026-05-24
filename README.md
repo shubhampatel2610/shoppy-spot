@@ -2,6 +2,8 @@
 
 A React-based e-commerce product listing and detail page application.
 
+Live demo link: [Click Here](https://shoppy-spot.vercel.app/) OR https://shoppy-spot.vercel.app/
+
 ---
 
 ## Setup Instructions
