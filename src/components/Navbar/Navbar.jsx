@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { InputText } from 'primereact/inputtext';
@@ -9,21 +9,26 @@ import productStore from '../../stores/productStore';
 
 const Navbar = observer(() => {
   const navigate = useNavigate();
+  const search = productStore.searchQuery;
 
   const handleSearch = (e) => {
-    const val = e.target.value;
-    productStore.setSearchQuery(val);
+    const value = e.target.value;
+    productStore.setSearchQuery(value);
+  };
 
-    clearTimeout(debounceRef.current);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const trimmed = search.trim();
 
-    debounceRef.current = setTimeout(() => {
-      if (val.trim()) {
-        productStore.searchProductsByQuery(val);
+      if (trimmed) {
+        productStore.searchProductsByQuery(trimmed);
       } else {
         productStore.loadAllProducts();
       }
     }, 500);
-  }
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   return (
     <header className="bg-[#1e3a5f] text-white shadow-md sticky top-0 z-50">

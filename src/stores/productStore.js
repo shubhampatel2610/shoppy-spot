@@ -53,14 +53,14 @@ class ProductStore {
       list = list.filter(p => p.price <= max);
     }
 
-    if (this.searchQuery.trim()) {
-      const q = this.searchQuery.toLowerCase();
+    // if (this.searchQuery.trim()) {
+    //   const q = this.searchQuery.toLowerCase();
 
-      list = list.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        (p.description || '').toLowerCase().includes(q)
-      )
-    }
+    //   list = list.filter(p =>
+    //     p.title.toLowerCase().includes(q) ||
+    //     (p.description || '').toLowerCase().includes(q)
+    //   )
+    // }
 
     return list;
   }
@@ -88,7 +88,6 @@ class ProductStore {
     this.selectedBrands = []
     this.minPrice = ''
     this.maxPrice = ''
-    this.searchQuery = ''
     this.currentPage = 1
   }
 
@@ -117,11 +116,6 @@ class ProductStore {
     } else {
       this.selectedBrands = [...this.selectedBrands, brand];
     }
-    this.currentPage = 1;
-  }
-
-  setSearchQuery = (query) => {
-    this.searchQuery = query;
     this.currentPage = 1;
   }
 
@@ -170,6 +164,7 @@ class ProductStore {
   searchProductsByQuery = async (query) => {
     this.loading = true;
     this.error = null;
+    this.clearFilters();
     try {
       const data = await searchProductsByQuery(query);
       runInAction(() => {
