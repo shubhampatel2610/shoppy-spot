@@ -2,7 +2,7 @@
 
 A React-based e-commerce product listing and detail page application.
 
-Live demo link: [Click Here](https://shoppy-spot.vercel.app/) OR https://shoppy-spot.vercel.app/
+Live demo link: <a href="https://shoppy-spot.vercel.app/" target="_blank" rel="noopener noreferrer">Click here</a> OR paste this URL in your browser: `https://shoppy-spot.vercel.app/`
 
 ---
 
