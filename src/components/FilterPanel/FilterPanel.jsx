@@ -24,12 +24,19 @@ const FilterPanel = observer(() => {
     productStore.resetPage();
   }
 
+  const handleClearFilters = () => {
+    setLocalMin('');
+    setLocalMax('');
+    productStore.clearFilters();
+    productStore.resetPage();
+  }
+
   return (
     <aside className="w-full bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-5 sticky top-6 max-h-[calc(100vh-7rem)] overflow-y-auto">
       {/* show clear button for active filters */}
       {productStore.hasActiveFilters && (
         <button
-          onClick={productStore.clearFilters}
+          onClick={handleClearFilters}
           className="text-xs text-blue-600 hover:underline w-full text-right"
         >
           {AppConstants.CLEAR_LABEL}
