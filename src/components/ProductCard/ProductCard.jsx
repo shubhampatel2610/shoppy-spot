@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import StarRating from '../../common/StarRating';
+import StarRating from '../common/StarRating';
 
 const ProductCard = (props) => {
     const { product } = props;

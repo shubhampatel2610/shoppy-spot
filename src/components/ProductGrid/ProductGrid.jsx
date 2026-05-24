@@ -4,7 +4,7 @@ import LoadingSpinner from '../common/LoadingSpinner';
 import ErrorMessage from '../common/ErrorMessage';
 import productStore from '../../stores/productStore';
 import AppConstants from '../../utils/AppConstants';
-import ProductCard from './_components/ProductCard';
+import ProductCard from '../ProductCard/ProductCard';
 
 const ProductGrid = observer(() => {
   if (productStore.loading) {
