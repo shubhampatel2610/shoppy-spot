@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { fetchAllCategories, fetchAllProducts } from '../services/productService';
+import { fetchAllCategories, fetchAllProducts, searchProductsByQuery } from '../services/productService';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -120,6 +120,11 @@ class ProductStore {
     this.currentPage = 1;
   }
 
+  setSearchQuery = (query) => {
+    this.searchQuery = query;
+    this.currentPage = 1;
+  }
+
   // Pagination Actions
   setPage = (page) => {
     this.currentPage = page
@@ -131,8 +136,8 @@ class ProductStore {
 
   // Load all products (used for client-side filtering)
   loadAllProducts = async () => {
-    this.loading = true
-    this.error = null
+    this.loading = true;
+    this.error = null;
     try {
       const data = await fetchAllProducts();
       runInAction(() => {
@@ -158,6 +163,24 @@ class ProductStore {
       })
     } catch (err) {
       console.error('Categories load error:', err.message)
+    }
+  }
+
+  // Search products by query (server-side search)
+  searchProductsByQuery = async (query) => {
+    this.loading = true;
+    this.error = null;
+    try {
+      const data = await searchProductsByQuery(query);
+      runInAction(() => {
+        this.allProducts = data.products;
+        this.loading = false;
+      })
+    } catch (err) {
+      runInAction(() => {
+        this.error = err.message;
+        this.loading = false;
+      })
     }
   }
 }

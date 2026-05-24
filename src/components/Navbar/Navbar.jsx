@@ -5,11 +5,24 @@ import { InputText } from 'primereact/inputtext';
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
 import AppConstants from '../../utils/AppConstants';
+import productStore from '../../stores/productStore';
 
 const Navbar = observer(() => {
   const navigate = useNavigate();
 
   const handleSearch = (e) => {
+    const val = e.target.value;
+    productStore.setSearchQuery(val);
+
+    clearTimeout(debounceRef.current);
+
+    debounceRef.current = setTimeout(() => {
+      if (val.trim()) {
+        productStore.searchProductsByQuery(val);
+      } else {
+        productStore.loadAllProducts();
+      }
+    }, 500);
   }
 
   return (
@@ -33,7 +46,7 @@ const Navbar = observer(() => {
           <IconField iconPosition="left" className="w-full max-w-xl">
             <InputIcon className="pi pi-search" />
             <InputText
-              value={"Value"}
+              value={productStore.searchQuery}
               onChange={handleSearch}
               placeholder={AppConstants.SEARCH_BAR_PLACEHOLDER}
               className="w-full"

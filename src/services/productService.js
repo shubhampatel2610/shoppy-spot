@@ -21,3 +21,14 @@ export const fetchAllCategories = async () => {
 
   return res.json();
 }
+
+// Search Products by query
+export const searchProductsByQuery = async (query) => {
+  const res = await fetch(`${BASE_URL}/products/search?q=${encodeURIComponent(query)}`);
+
+  if (!res.ok) {
+    throw new Error('Failed to search products');
+  }
+
+  return res.json();
+}
