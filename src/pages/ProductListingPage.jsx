@@ -5,8 +5,13 @@ import ProductGrid from '../components/ProductGrid/ProductGrid';
 
 const ProductListingPage = observer(() => {
   useEffect(() => {
-    // API Calls
-  }, [])
+    if (productStore.allProducts.length === 0) {
+      productStore.loadAllProducts();
+    }
+    if (productStore.allCategories.length === 0) {
+      productStore.loadAllCategories();
+    }
+  }, []);
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-6">

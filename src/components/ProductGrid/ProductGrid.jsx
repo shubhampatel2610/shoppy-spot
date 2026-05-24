@@ -3,10 +3,12 @@ import { observer } from 'mobx-react-lite';
 import LoadingSpinner from '../common/LoadingSpinner';
 import ErrorMessage from '../common/ErrorMessage';
 import productStore from '../../stores/productStore';
+import AppConstants from '../../utils/AppConstants';
+import ProductCard from './_components/ProductCard';
 
 const ProductGrid = observer(() => {
   if (productStore.loading) {
-    return <LoadingSpinner message="Fetching products..." />;
+    return <LoadingSpinner message={AppConstants.PRODUCT_LOADING_TEXT} />;
   }
 
   if (productStore.error) {
@@ -18,9 +20,11 @@ const ProductGrid = observer(() => {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      GRID
+      {productStore.allProducts.map(p => (
+        <ProductCard key={p.id} product={p} />
+      ))}
     </div>
   )
 })
 
-export default ProductGrid
+export default ProductGrid;
