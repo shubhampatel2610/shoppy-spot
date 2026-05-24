@@ -17,7 +17,7 @@ const ProductListingPage = observer(() => {
   }, []);
 
   return (
-    <main className="max-w-7xl mx-auto px-4 py-6">
+    <main className="max-w-full mx-auto px-4 py-6">
       <div className="flex gap-5">
         {/* Filter Panel */}
         <div className="hidden md:block w-56 shrink-0">
