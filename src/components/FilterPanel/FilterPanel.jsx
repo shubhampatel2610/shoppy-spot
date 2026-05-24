@@ -25,7 +25,7 @@ const FilterPanel = observer(() => {
   }
 
   return (
-    <aside className="w-full bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-5">
+    <aside className="w-full bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-5 sticky top-6 max-h-[calc(100vh-7rem)] overflow-y-auto">
       {/* show clear button for active filters */}
       {productStore.hasActiveFilters && (
         <button
@@ -41,7 +41,7 @@ const FilterPanel = observer(() => {
         <h3 className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
           {AppConstants.CATEGORIES_HEADER}
         </h3>
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
           {productStore.allCategories.length === 0 && (
             <p className="text-xs text-gray-400 italic"> {AppConstants.CATEGORIES_LOADING_TEXT} </p>
           )}
@@ -110,7 +110,7 @@ const FilterPanel = observer(() => {
         <h3 className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
           {AppConstants.BRANDS_HEADER}
         </h3>
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
           {productStore.availableBrands.length === 0 && (
             <p className="text-xs text-gray-400 italic">{AppConstants.NO_BRANDS_TEXT}</p>
           )}

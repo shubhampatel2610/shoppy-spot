@@ -20,7 +20,7 @@ const ProductListingPage = observer(() => {
     <main className="max-w-full mx-auto px-4 py-6">
       <div className="flex gap-5">
         {/* Filter Panel */}
-        <div className="hidden md:block w-56 shrink-0">
+        <div className="hidden md:block w-56 shrink-0 sticky top-20 self-start">
           <FilterPanel />
         </div>
 
@@ -43,7 +43,7 @@ const ProductListingPage = observer(() => {
               <summary className="cursor-pointer px-3 py-1.5 bg-[#1e3a5f] text-white text-sm rounded flex items-center gap-1 list-none">
                 <i className="pi pi-sliders-h" /> {AppConstants.FILTERS_LABEL}
               </summary>
-              <div className="absolute right-0 top-full mt-1 z-40 w-64 shadow-lg">
+              <div className="absolute right-0 top-full mt-1 z-40 w-64 max-h-[calc(100vh-3rem)] overflow-y-auto shadow-lg">
                 <FilterPanel />
               </div>
             </details>
