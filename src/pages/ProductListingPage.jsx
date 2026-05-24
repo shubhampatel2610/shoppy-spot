@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import productStore from '../stores/productStore';
 import ProductGrid from '../components/ProductGrid/ProductGrid';
+import AppConstants from '../utils/AppConstants';
 
 const ProductListingPage = observer(() => {
   useEffect(() => {
@@ -22,7 +23,7 @@ const ProductListingPage = observer(() => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-lg font-bold text-gray-800">
-                {'All Products'}
+                {AppConstants.ALL_PRODUCTS_HEADER}
               </h1>
             </div>
           </div>
