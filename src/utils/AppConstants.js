@@ -46,6 +46,11 @@ class AppConstants {
     // Pagination Constants
     static PREVIOUS_LABEL = "Previous";
     static NEXT_LABEL = "Next";
+
+    // Error Boundary Constants
+    static ERROR_BOUNDARY_TITLE = "Something went wrong";
+    static ERROR_BOUNDARY_MESSAGE = "An unexpected error occurred while rendering this page. Please reload and try again.";
+    static RELOAD_LABEL = "Reload Page";
 }
 
 export default AppConstants;
