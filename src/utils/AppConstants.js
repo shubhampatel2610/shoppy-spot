@@ -46,6 +46,26 @@ class AppConstants {
     // Pagination Constants
     static PREVIOUS_LABEL = "Previous";
     static NEXT_LABEL = "Next";
+
+    // Error Boundary Constants
+    static ERROR_BOUNDARY_TITLE = "Something went wrong";
+    static ERROR_BOUNDARY_MESSAGE = "An unexpected error occurred while rendering this page. Please reload and try again.";
+    static RELOAD_LABEL = "Reload Page";
+
+    // API / HTTP Error Constants
+    static NETWORK_ERROR_MESSAGE = "Unable to connect to the server. Please check your internet connection.";
+    static TIMEOUT_ERROR_MESSAGE = "Request timed out. Please try again.";
+    static CANCELLED_ERROR_MESSAGE = "Request was cancelled.";
+    static BAD_REQUEST_MESSAGE = "Invalid request. Please check your input.";
+    static UNAUTHORIZED_MESSAGE = "You are not authorized. Please log in again.";
+    static FORBIDDEN_MESSAGE = "You do not have permission to perform this action.";
+    static NOT_FOUND_MESSAGE = "The requested resource was not found.";
+    static CONFLICT_MESSAGE = "This action conflicts with existing data.";
+    static VALIDATION_ERROR_MESSAGE = "Some fields are invalid. Please review and try again.";
+    static TOO_MANY_REQUESTS_MESSAGE = "Too many requests. Please slow down and try again.";
+    static SERVER_ERROR_MESSAGE = "Something went wrong on our end. Please try again later.";
+    static SERVICE_UNAVAILABLE_MESSAGE = "Server is currently unavailable. Please try again later.";
+    static GENERIC_ERROR_MESSAGE = "Something went wrong. Please try again.";
 }
 
 export default AppConstants;

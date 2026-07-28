@@ -7,26 +7,17 @@ import productStore from '../../stores/productStore';
 import AppConstants from '../../utils/AppConstants';
 
 const FilterPanel = observer(() => {
-  const [localMin, setLocalMin] = useState(productStore.minPrice)
-  const [localMax, setLocalMax] = useState(productStore.maxPrice)
-
   const handleApplyPrice = () => {
-    productStore.setMinPrice(localMin);
-    productStore.setMaxPrice(localMax);
+    productStore.applyPriceFilter();
     productStore.resetPage();
   }
 
   const handleClearPrice = () => {
-    setLocalMin('');
-    setLocalMax('');
-    productStore.setMinPrice('');
-    productStore.setMaxPrice('');
+    productStore.clearPriceFilter();
     productStore.resetPage();
   }
 
   const handleClearFilters = () => {
-    setLocalMin('');
-    setLocalMax('');
     productStore.clearFilters();
     productStore.resetPage();
   }
@@ -83,15 +74,15 @@ const FilterPanel = observer(() => {
         </h3>
         <div className="flex gap-2 mb-2">
           <InputText
-            value={localMin}
-            onChange={e => setLocalMin(e.target.value)}
+            value={productStore.minPrice}
+            onChange={e => productStore.setMinPrice(e.target.value)}
             placeholder={AppConstants.MIN_PLACEHOLDER}
             className="w-1/2 text-sm h-8"
             keyfilter="num"
           />
           <InputText
-            value={localMax}
-            onChange={e => setLocalMax(e.target.value)}
+            value={productStore.maxPrice}
+            onChange={e => productStore.setMaxPrice(e.target.value)}
             placeholder={AppConstants.MAX_PLACEHOLDER}
             className="w-1/2 text-sm h-8"
             keyfilter="num"
