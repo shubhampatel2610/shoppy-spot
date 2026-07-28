@@ -47,6 +47,12 @@ class ProductStore {
       list = list.filter(p => this.selectedBrands.includes(p.brand));
     }
 
+    return list;
+  }
+
+  applyPriceFilter () {
+    let list = [...this.filteredProducts];
+
     const min = parseFloat(this.minPrice);
     if (!isNaN(min)) {
       list = list.filter(p => p.price >= min);
@@ -57,7 +63,8 @@ class ProductStore {
       list = list.filter(p => p.price <= max);
     }
 
-    return list;
+    this.filteredProducts = list;
+    
   }
 
   get paginatedProducts() {
@@ -81,8 +88,8 @@ class ProductStore {
   clearFilters = () => {
     this.selectedCategories = []
     this.selectedBrands = []
-    this.minPrice = ''
-    this.maxPrice = ''
+    this.setMinPrice('')
+    this.setMaxPrice('')
     this.currentPage = 1
   }
 
