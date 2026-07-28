@@ -22,6 +22,9 @@ class ProductStore {
   maxPrice = '';
   searchQuery = '';
 
+  // Recomputed by applyFilters(); not a computed so price can defer to Apply.
+  filteredProducts = [];
+
   get hasActiveFilters() {
     return this.selectedCategories.length > 0 ||
       this.selectedBrands.length > 0 ||
@@ -36,7 +39,8 @@ class ProductStore {
     makeAutoObservable(this);
   }
 
-  get filteredProducts() {
+  // Category/brand callers rerun this immediately; price only via Apply/Clear.
+  applyFilters = () => {
     let list = [...this.allProducts];
 
     if (this.selectedCategories.length > 0) {
@@ -46,12 +50,6 @@ class ProductStore {
     if (this.selectedBrands.length > 0) {
       list = list.filter(p => this.selectedBrands.includes(p.brand));
     }
-
-    return list;
-  }
-
-  applyPriceFilter () {
-    let list = [...this.filteredProducts];
 
     const min = parseFloat(this.minPrice);
     if (!isNaN(min)) {
@@ -64,7 +62,16 @@ class ProductStore {
     }
 
     this.filteredProducts = list;
-    
+  }
+
+  applyPriceFilter = () => {
+    this.applyFilters();
+  }
+
+  clearPriceFilter = () => {
+    this.minPrice = '';
+    this.maxPrice = '';
+    this.applyFilters();
   }
 
   get paginatedProducts() {
@@ -88,9 +95,8 @@ class ProductStore {
   clearFilters = () => {
     this.selectedCategories = []
     this.selectedBrands = []
-    this.setMinPrice('')
-    this.setMaxPrice('')
     this.currentPage = 1
+    this.clearPriceFilter()
   }
 
   get availableBrands() {
@@ -110,6 +116,7 @@ class ProductStore {
       this.selectedCategories = [...this.selectedCategories, slug]
     }
     this.currentPage = 1
+    this.applyFilters()
   }
 
   toggleBrand = (brand) => {
@@ -119,6 +126,7 @@ class ProductStore {
       this.selectedBrands = [...this.selectedBrands, brand];
     }
     this.currentPage = 1;
+    this.applyFilters();
   }
 
   // Pagination Actions
@@ -139,6 +147,7 @@ class ProductStore {
       runInAction(() => {
         this.allProducts = data.products;
         this.loading = false;
+        this.applyFilters();
       })
     } catch (err) {
       runInAction(() => {
@@ -172,6 +181,7 @@ class ProductStore {
       runInAction(() => {
         this.allProducts = data.products;
         this.loading = false;
+        this.applyFilters();
       })
     } catch (err) {
       runInAction(() => {

@@ -13,8 +13,7 @@ const FilterPanel = observer(() => {
   }
 
   const handleClearPrice = () => {
-    productStore.setMinPrice('');
-    productStore.setMaxPrice('');
+    productStore.clearPriceFilter();
     productStore.resetPage();
   }
 
