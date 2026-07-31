@@ -62,23 +62,33 @@ const OrderSummary = observer((props) => {
             {AppConstants.AVAILABLE_COUPONS_HEADER}
           </h3>
           <div className="space-y-2">
-            {AppConstants.AVAILABLE_COUPONS.map((coupon) => (
-              <div
-                key={coupon.code}
-                className="flex items-center justify-between gap-2 border border-dashed border-gray-200 rounded-lg px-3 py-2"
-              >
-                <div>
-                  <p className="text-sm font-bold text-[#1e3a5f] tracking-wide">{coupon.code}</p>
-                  <p className="text-xs text-gray-500">{coupon.label}</p>
+            {AppConstants.AVAILABLE_COUPONS.map((coupon) => {
+              const eligible = cartStore.isCouponEligible(coupon);
+              const tooltip = eligible
+                ? null
+                : `${AppConstants.COUPON_MIN_ORDER_PREFIX} $${cartStore.amountNeededFor(coupon).toFixed(2)} ${AppConstants.COUPON_MIN_ORDER_SUFFIX}`;
+
+              return (
+                <div
+                  key={coupon.code}
+                  className="flex items-center justify-between gap-2 border border-dashed border-gray-200 rounded-lg px-3 py-2"
+                >
+                  <div>
+                    <p className="text-sm font-bold text-[#1e3a5f] tracking-wide">{coupon.code}</p>
+                    <p className="text-xs text-gray-500">{coupon.label}</p>
+                  </div>
+                  <Button
+                    label={AppConstants.APPLY_COUPON_LABEL}
+                    onClick={() => handleSelectCoupon(coupon.code)}
+                    outlined
+                    disabled={!eligible}
+                    tooltip={tooltip}
+                    tooltipOptions={{ position: 'top', showOnDisabled: true }}
+                    className="h-8 text-xs text-[#1e3a5f] border-[#1e3a5f] whitespace-nowrap"
+                  />
                 </div>
-                <Button
-                  label={AppConstants.APPLY_COUPON_LABEL}
-                  onClick={() => handleSelectCoupon(coupon.code)}
-                  outlined
-                  className="h-8 text-xs text-[#1e3a5f] border-[#1e3a5f] whitespace-nowrap"
-                />
-              </div>
-            ))}
+              )
+            })}
           </div>
         </OverlayPanel>
 

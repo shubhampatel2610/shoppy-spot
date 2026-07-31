@@ -3,6 +3,10 @@ import AppConstants from '../utils/AppConstants';
 
 const CART_STORAGE_KEY = 'shoppy-spot-cart';
 
+// Minimum amount that must remain in the bill after a coupon discount is applied,
+// so e.g. a $50-off coupon can't be used to wipe out a $3 cart.
+const MIN_ORDER_BUFFER = 10;
+
 // Mock coupon codes for the simulated checkout flow, keyed by code for lookup.
 const COUPONS = AppConstants.AVAILABLE_COUPONS.reduce((map, coupon) => {
   map[coupon.code] = coupon;
@@ -64,6 +68,22 @@ class CartStore {
     return this.subtotal - this.discountAmount;
   }
 
+  // Smallest subtotal at which this coupon still leaves MIN_ORDER_BUFFER in the bill.
+  getMinOrderValue = (coupon) => {
+    if (coupon.type === 'percent') {
+      return MIN_ORDER_BUFFER / (1 - coupon.value / 100);
+    }
+    return coupon.value + MIN_ORDER_BUFFER;
+  }
+
+  isCouponEligible = (coupon) => {
+    return this.subtotal >= this.getMinOrderValue(coupon);
+  }
+
+  amountNeededFor = (coupon) => {
+    return Math.max(0, this.getMinOrderValue(coupon) - this.subtotal);
+  }
+
   addToCart = (product, quantity = 1) => {
     const existing = this.items.find(item => item.id === product.id);
     if (existing) {
@@ -118,6 +138,12 @@ class CartStore {
     if (!coupon) {
       this.appliedCoupon = null;
       this.couponError = AppConstants.INVALID_COUPON_MESSAGE;
+      return;
+    }
+    if (!this.isCouponEligible(coupon)) {
+      this.appliedCoupon = null;
+      const needed = this.amountNeededFor(coupon).toFixed(2);
+      this.couponError = `${AppConstants.COUPON_MIN_ORDER_PREFIX} $${needed} ${AppConstants.COUPON_MIN_ORDER_SUFFIX}`;
       return;
     }
     this.appliedCoupon = coupon;
