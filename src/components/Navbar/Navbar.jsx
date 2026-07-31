@@ -8,6 +8,7 @@ import { Badge } from 'primereact/badge';
 import AppConstants from '../../utils/AppConstants';
 import productStore from '../../stores/productStore';
 import cartStore from '../../stores/cartStore';
+import AppLogo from '../common/AppLogo';
 
 const Navbar = observer(() => {
   const navigate = useNavigate();
@@ -43,12 +44,15 @@ const Navbar = observer(() => {
         </button>
 
         {/* Logo */}
-        <span
-          className="font-bold text-lg tracking-wide cursor-pointer select-none hidden sm:block whitespace-nowrap"
+        <div
+          className="flex items-center gap-2 cursor-pointer select-none shrink-0"
           onClick={() => navigate('/')}
         >
-          {AppConstants.LOGO_TEXT}
-        </span>
+          <AppLogo size={28} />
+          <span className="font-bold text-lg tracking-wide hidden sm:block whitespace-nowrap">
+            {AppConstants.LOGO_TEXT}
+          </span>
+        </div>
 
         {/* Search - home page only */}
         {isHomePage ? (
