@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { InputText } from 'primereact/inputtext';
 import { IconField } from 'primereact/iconfield';
@@ -11,6 +11,8 @@ import cartStore from '../../stores/cartStore';
 
 const Navbar = observer(() => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
   const search = productStore.searchQuery;
 
   const handleSearch = (e) => {
@@ -48,18 +50,22 @@ const Navbar = observer(() => {
           {AppConstants.LOGO_TEXT}
         </span>
 
-        {/* Search */}
-        <div className="flex-1 flex justify-center">
-          <IconField iconPosition="left" className="w-full max-w-xl">
-            <InputIcon className="pi pi-search" />
-            <InputText
-              value={productStore.searchQuery}
-              onChange={handleSearch}
-              placeholder={AppConstants.SEARCH_BAR_PLACEHOLDER}
-              className="w-full"
-            />
-          </IconField>
-        </div>
+        {/* Search - home page only */}
+        {isHomePage ? (
+          <div className="flex-1 flex justify-center">
+            <IconField iconPosition="left" className="w-full max-w-xl">
+              <InputIcon className="pi pi-search" />
+              <InputText
+                value={productStore.searchQuery}
+                onChange={handleSearch}
+                placeholder={AppConstants.SEARCH_BAR_PLACEHOLDER}
+                className="w-full"
+              />
+            </IconField>
+          </div>
+        ) : (
+          <div className="flex-1" />
+        )}
 
         {/* Nav Icons */}
         <div className="flex items-center gap-4">
