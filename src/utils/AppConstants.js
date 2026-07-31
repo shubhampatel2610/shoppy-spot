@@ -90,6 +90,50 @@ class AppConstants {
     static ERROR_BOUNDARY_MESSAGE = "An unexpected error occurred while rendering this page. Please reload and try again.";
     static RELOAD_LABEL = "Reload Page";
 
+    // User Profile Field Constants
+    static FIRST_NAME_FIELD = { name: "firstName", label: "First Name", placeholder: "Enter first name", type: "text" };
+    static MIDDLE_NAME_FIELD = { name: "middleName", label: "Middle Name", placeholder: "Enter middle name", type: "text" };
+    static LAST_NAME_FIELD = { name: "lastName", label: "Last Name", placeholder: "Enter last name", type: "text" };
+    static EMAIL_FIELD = { name: "email", label: "Email", placeholder: "Enter email address", type: "email" };
+    static PHONE_FIELD = { name: "phone", label: "Phone No", placeholder: "Enter phone number", type: "tel" };
+    static GENDER_FIELD = { name: "gender", label: "Gender", placeholder: "Select gender", type: "text" };
+    static GENDER_OPTIONS = [
+        { label: "Male", value: "male" },
+        { label: "Female", value: "female" },
+        { label: "Other", value: "other" },
+    ];
+
+    // User Address Field Constants
+    static BUILDING_NO_FIELD = { name: "buildingNo", label: "Building No", placeholder: "Enter building/flat no", type: "text" };
+    static STREET_NAME_FIELD = { name: "streetName", label: "Street Name", placeholder: "Enter street name", type: "text" };
+    static LANDMARK_FIELD = { name: "landmark", label: "Landmark", placeholder: "Enter landmark", type: "text" };
+    static CITY_FIELD = { name: "city", label: "City", placeholder: "Enter city", type: "text" };
+    static PINCODE_FIELD = { name: "pincode", label: "Pincode", placeholder: "Enter pincode", type: "text" };
+    static STATE_FIELD = { name: "state", label: "State", placeholder: "Enter state", type: "text" };
+    static COUNTRY_FIELD = { name: "country", label: "Country", placeholder: "Enter country", type: "text" };
+
+    // Field Validation Message Constants
+    static REQUIRED_POSTFIX = "is required";
+    static MINIMUM_PREFIX = "Minimum";
+    static MAXIMUM_PREFIX = "Maximum";
+    static CHARS_REQUIRED_POSTFIX = "characters required";
+    static CHARS_ALLOWED_POSTFIX = "characters allowed";
+    static REQUEST_ENTER_PREFIX = "Please enter a";
+    static VALID_URL_POSTFIX = "valid URL";
+    static VALID_EMAIL_POSTFIX = "valid email address";
+    static VALID_PHONE_POSTFIX = "valid 10 digit phone number";
+
+    // User Details Page Constants
+    static USER_DETAILS_TITLE = "My Profile";
+    static PERSONAL_INFO_HEADER = "Personal Information";
+    static ADDRESS_HEADER = "Address";
+    static EDIT_PROFILE_TITLE = "Edit Profile";
+    static EDIT_ADDRESS_TITLE = "Edit Address";
+    static SAVE_LABEL = "Save";
+    static CANCEL_LABEL = "Cancel";
+    static NOT_PROVIDED_TEXT = "Not provided";
+    static NO_ADDRESS_TEXT = "No address added yet";
+
     // API / HTTP Error Constants
     static NETWORK_ERROR_MESSAGE = "Unable to connect to the server. Please check your internet connection.";
     static TIMEOUT_ERROR_MESSAGE = "Request timed out. Please try again.";
