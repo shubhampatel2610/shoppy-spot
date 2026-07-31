@@ -199,6 +199,13 @@ body {
   background-color: #f3f4f6 !important;
 }
 
+/* Tooltip Styles */
+.p-tooltip-text {
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.75rem !important;
+  border-radius: 6px !important;
+}
+
 /* OverlayPanel Styles */
 .p-overlaypanel {
   border-radius: 10px !important;
