@@ -199,6 +199,24 @@ body {
   background-color: #f3f4f6 !important;
 }
 
+/* Image Preview (Zoom) Styles */
+.p-image-preview-indicator {
+  left: auto !important;
+  top: auto !important;
+  right: 0.6rem !important;
+  bottom: 0.6rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  border-radius: 50% !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.p-image-preview-icon {
+  font-size: 0.8rem !important;
+  color: #6b7280 !important;
+}
+
 /* Tooltip Styles */
 .p-tooltip-text {
   padding: 0.5rem 0.75rem !important;
