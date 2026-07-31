@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { OverlayPanel } from 'primereact/overlaypanel';
 import cartStore from '../../stores/cartStore';
 import AppConstants from '../../utils/AppConstants';
 
 const OrderSummary = observer((props) => {
   const { onCheckout } = props;
+  const couponListRef = useRef(null);
+
+  const handleSelectCoupon = (code) => {
+    cartStore.selectCoupon(code);
+    couponListRef.current?.hide();
+  }
 
   return (
     <aside className="w-full bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-4 sticky top-20">
@@ -21,7 +28,8 @@ const OrderSummary = observer((props) => {
             value={cartStore.couponInput}
             onChange={(e) => cartStore.setCouponInput(e.target.value)}
             placeholder={AppConstants.COUPON_PLACEHOLDER}
-            className="flex-1 min-w-0 text-sm h-9"
+            className="flex-1 min-w-0 text-sm h-9 uppercase"
+            keyfilter="alphanum"
             disabled={!!cartStore.appliedCoupon}
           />
           {cartStore.appliedCoupon ? (
@@ -39,6 +47,41 @@ const OrderSummary = observer((props) => {
             />
           )}
         </div>
+
+        {!cartStore.appliedCoupon && (
+          <button
+            onClick={(e) => couponListRef.current?.toggle(e)}
+            className="text-xs text-[#1e3a5f] hover:underline mt-1.5 flex items-center gap-1"
+          >
+            <i className="pi pi-tags" /> {AppConstants.VIEW_COUPONS_LABEL}
+          </button>
+        )}
+
+        <OverlayPanel ref={couponListRef} className="w-72">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+            {AppConstants.AVAILABLE_COUPONS_HEADER}
+          </h3>
+          <div className="space-y-2">
+            {AppConstants.AVAILABLE_COUPONS.map((coupon) => (
+              <div
+                key={coupon.code}
+                className="flex items-center justify-between gap-2 border border-dashed border-gray-200 rounded-lg px-3 py-2"
+              >
+                <div>
+                  <p className="text-sm font-bold text-[#1e3a5f] tracking-wide">{coupon.code}</p>
+                  <p className="text-xs text-gray-500">{coupon.label}</p>
+                </div>
+                <Button
+                  label={AppConstants.APPLY_COUPON_LABEL}
+                  onClick={() => handleSelectCoupon(coupon.code)}
+                  outlined
+                  className="h-8 text-xs text-[#1e3a5f] border-[#1e3a5f] whitespace-nowrap"
+                />
+              </div>
+            ))}
+          </div>
+        </OverlayPanel>
+
         {cartStore.couponError && (
           <p className="text-xs text-red-500 mt-1">{cartStore.couponError}</p>
         )}

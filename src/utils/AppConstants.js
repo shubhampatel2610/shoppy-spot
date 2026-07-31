@@ -74,6 +74,13 @@ class AppConstants {
     static COUPON_APPLIED_PREFIX = "Coupon applied:";
     static CHECKOUT_LABEL = "Proceed to Checkout";
     static ORDER_PLACED_MESSAGE = "Your order has been placed successfully!";
+    static VIEW_COUPONS_LABEL = "View All Coupons";
+    static AVAILABLE_COUPONS_HEADER = "Available Coupons";
+    static AVAILABLE_COUPONS = [
+        { code: "SAVE10", type: "percent", value: 10, label: "10% off your order" },
+        { code: "SAVE20", type: "percent", value: 20, label: "20% off your order" },
+        { code: "FLAT50", type: "flat", value: 50, label: "$50 off your order" },
+    ];
 
     // Error Boundary Constants
     static ERROR_BOUNDARY_TITLE = "Something went wrong";

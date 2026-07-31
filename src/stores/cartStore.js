@@ -3,12 +3,11 @@ import AppConstants from '../utils/AppConstants';
 
 const CART_STORAGE_KEY = 'shoppy-spot-cart';
 
-// Mock coupon codes for the simulated checkout flow.
-const COUPONS = {
-  SAVE10: { code: 'SAVE10', type: 'percent', value: 10, label: '10% off' },
-  SAVE20: { code: 'SAVE20', type: 'percent', value: 20, label: '20% off' },
-  FLAT50: { code: 'FLAT50', type: 'flat', value: 50, label: '$50 off' },
-};
+// Mock coupon codes for the simulated checkout flow, keyed by code for lookup.
+const COUPONS = AppConstants.AVAILABLE_COUPONS.reduce((map, coupon) => {
+  map[coupon.code] = coupon;
+  return map;
+}, {});
 
 const loadItemsFromStorage = () => {
   try {
@@ -107,13 +106,14 @@ class CartStore {
   }
 
   // Coupon Actions
+  // Coupon codes are always uppercase, so keystrokes are normalized as they're typed.
   setCouponInput = (value) => {
-    this.couponInput = value;
+    this.couponInput = value.toUpperCase();
     this.couponError = null;
   }
 
   applyCoupon = () => {
-    const code = this.couponInput.trim().toUpperCase();
+    const code = this.couponInput.trim();
     const coupon = COUPONS[code];
     if (!coupon) {
       this.appliedCoupon = null;
@@ -122,6 +122,12 @@ class CartStore {
     }
     this.appliedCoupon = coupon;
     this.couponError = null;
+  }
+
+  // Used when a coupon is picked from the "View All Coupons" list.
+  selectCoupon = (code) => {
+    this.setCouponInput(code);
+    this.applyCoupon();
   }
 
   removeCoupon = () => {
