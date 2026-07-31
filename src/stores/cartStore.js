@@ -103,6 +103,7 @@ class CartStore {
 
   removeFromCart = (productId) => {
     this.items = this.items.filter(item => item.id !== productId);
+    this.revalidateCoupon();
     this.persist();
   }
 
@@ -116,6 +117,7 @@ class CartStore {
       return;
     }
     item.quantity = quantity;
+    this.revalidateCoupon();
     this.persist();
   }
 
@@ -154,6 +156,16 @@ class CartStore {
   selectCoupon = (code) => {
     this.setCouponInput(code);
     this.applyCoupon();
+  }
+
+  // Called after any change that can shrink the subtotal, so an applied coupon
+  // that no longer meets its minimum order value is dropped automatically.
+  revalidateCoupon = () => {
+    if (this.appliedCoupon && !this.isCouponEligible(this.appliedCoupon)) {
+      this.appliedCoupon = null;
+      this.couponInput = '';
+      this.couponError = AppConstants.COUPON_AUTO_REMOVED_MESSAGE;
+    }
   }
 
   removeCoupon = () => {

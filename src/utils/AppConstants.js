@@ -78,6 +78,7 @@ class AppConstants {
     static AVAILABLE_COUPONS_HEADER = "Available Coupons";
     static COUPON_MIN_ORDER_PREFIX = "Add";
     static COUPON_MIN_ORDER_SUFFIX = "more to your cart to use this coupon.";
+    static COUPON_AUTO_REMOVED_MESSAGE = "Your coupon was removed because the order no longer qualifies for it.";
     static AVAILABLE_COUPONS = [
         { code: "SAVE10", type: "percent", value: 10, label: "10% off your order" },
         { code: "SAVE20", type: "percent", value: 20, label: "20% off your order" },
