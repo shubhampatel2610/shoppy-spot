@@ -15,6 +15,16 @@ class AppConstants {
     static FOUND_POSTFIX = 'found';
     static FILTERS_LABEL = "Filters";
 
+    // Sort Constants
+    static SORT_LABEL = "Sort by";
+    static SORT_OPTIONS = [
+        { label: "Default", value: "" },
+        { label: "Price: Low to High", value: "price_asc" },
+        { label: "Price: High to Low", value: "price_desc" },
+        { label: "Highest Rated", value: "rating_desc" },
+        { label: "Newest First", value: "newest" },
+    ];
+
     // ProductDetail Page Constants
     static PRODUCT_DETAIL_LOADING_TEXT = "Loading product details...";
     static BACK_LABEL = "Back";

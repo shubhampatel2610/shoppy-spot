@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { fetchAllCategories, fetchAllProducts, fetchProductDataById, searchProductsByQuery } from '../services/productService';
 
-const ITEMS_PER_PAGE = 8;
+export const ITEMS_PER_PAGE = 8;
 
 class ProductStore {
   // Listing Page States
@@ -21,6 +21,9 @@ class ProductStore {
   minPrice = '';
   maxPrice = '';
   searchQuery = '';
+
+  // Sort Constants
+  sortBy = '';
 
   // Recomputed by applyFilters(); not a computed so price can defer to Apply.
   filteredProducts = [];
@@ -61,7 +64,33 @@ class ProductStore {
       list = list.filter(p => p.price <= max);
     }
 
-    this.filteredProducts = list;
+    this.filteredProducts = this.applySort(list);
+  }
+
+  // Sorting is kept separate from filtering so it can be reapplied without refiltering.
+  applySort = (list) => {
+    switch (this.sortBy) {
+      case 'price_asc':
+        return [...list].sort((a, b) => a.price - b.price);
+      case 'price_desc':
+        return [...list].sort((a, b) => b.price - a.price);
+      case 'rating_desc':
+        return [...list].sort((a, b) => b.rating - a.rating);
+      case 'newest':
+        return [...list].sort((a, b) => {
+          const aTime = a.meta?.createdAt ? new Date(a.meta.createdAt).getTime() : a.id;
+          const bTime = b.meta?.createdAt ? new Date(b.meta.createdAt).getTime() : b.id;
+          return bTime - aTime;
+        });
+      default:
+        return list;
+    }
+  }
+
+  setSortBy = (value) => {
+    this.sortBy = value;
+    this.currentPage = 1;
+    this.applyFilters();
   }
 
   applyPriceFilter = () => {

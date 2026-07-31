@@ -140,6 +140,21 @@ body {
   font-size: 0.875rem !important;
 }
 
+/* Dropdown Styles */
+.p-dropdown-item {
+  padding: 0.55rem 1rem !important;
+  font-size: 0.875rem !important;
+}
+
+.p-dropdown-item.p-highlight {
+  background-color: rgba(30, 58, 95, 0.1) !important;
+  color: #1e3a5f !important;
+}
+
+.p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
+  background-color: #f3f4f6 !important;
+}
+
 /* Star Rating Styles */
 .p-rating {
   gap: 4px !important;
