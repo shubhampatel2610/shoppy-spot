@@ -4,7 +4,6 @@ class AppConstants {
     static SEARCH_BAR_PLACEHOLDER = "Search products...";
 
     // Common Component Constants
-    static LOADING_MESSAGE = "Loading...";
     static RETRY_LABEL = "Retry";
 
     // ProductListing Page Constants
@@ -26,7 +25,6 @@ class AppConstants {
     ];
 
     // ProductDetail Page Constants
-    static PRODUCT_DETAIL_LOADING_TEXT = "Loading product details...";
     static BACK_LABEL = "Back";
     static BRAND_HEADER = "Brand";
     static CATEGORY_HEADER = "Category";
@@ -51,9 +49,6 @@ class AppConstants {
     static CLEAR_PRICE_LABEL = "Clear Price Filter";
     static BRANDS_HEADER = "Brands";
     static NO_BRANDS_TEXT = "No brands available";
-
-    // ProductGrid Constants
-    static PRODUCT_LOADING_TEXT = "Fetching products...";
 
     // Pagination Constants
     static PREVIOUS_LABEL = "Previous";

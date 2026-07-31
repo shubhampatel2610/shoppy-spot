@@ -8,7 +8,7 @@ import QuantityStepper from '../components/common/QuantityStepper';
 import productStore from '../stores/productStore';
 import cartStore from '../stores/cartStore';
 import AppConstants from '../utils/AppConstants';
-import LoadingSpinner from '../components/common/LoadingSpinner';
+import ProductDetailSkeleton from '../components/common/ProductDetailSkeleton';
 import ErrorMessage from '../components/common/ErrorMessage';
 import ProductReview from '../components/ProductReview/ProductReview';
 
@@ -24,7 +24,11 @@ const ProductDetailPage = observer(() => {
   }, [productId]);
 
   if (productStore.detailLoading) {
-    return <LoadingSpinner message={AppConstants.PRODUCT_DETAIL_LOADING_TEXT} />;
+    return (
+      <main className="max-w-5xl mx-auto px-4 py-6">
+        <ProductDetailSkeleton />
+      </main>
+    );
   }
 
   if (productStore.detailError) {
