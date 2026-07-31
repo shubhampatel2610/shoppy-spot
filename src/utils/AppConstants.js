@@ -37,6 +37,8 @@ class AppConstants {
     static ADD_TO_CART_LABEL = "Add to Cart";
     static ADD_TO_WISHLIST_LABEL = "Add to Wishlist";
     static MORE_IMAGES_LABEL = "More Images";
+    static ADD_TO_CART_TOAST_SUMMARY = "Added to cart";
+    static ADD_TO_CART_TOAST_DETAIL_SUFFIX = "has been added to your cart.";
 
     // FilterPanel Constants
     static CLEAR_LABEL = "Clear Filters";
@@ -56,6 +58,27 @@ class AppConstants {
     // Pagination Constants
     static PREVIOUS_LABEL = "Previous";
     static NEXT_LABEL = "Next";
+
+    // Cart Page Constants
+    static CART_PAGE_TITLE = "Shopping Cart";
+    static CART_EMPTY_TITLE = "Your cart is empty";
+    static CART_EMPTY_SUBTEXT = "Looks like you haven't added anything yet.";
+    static CONTINUE_SHOPPING_LABEL = "Continue Shopping";
+    static REMOVE_LABEL = "Remove";
+    static ITEMS_IN_CART_SUFFIX = "item(s) in cart";
+
+    // Order Summary / Coupon Constants
+    static ORDER_SUMMARY_HEADER = "Order Summary";
+    static SUBTOTAL_LABEL = "Subtotal";
+    static DISCOUNT_LABEL = "Discount";
+    static TOTAL_LABEL = "Total";
+    static COUPON_PLACEHOLDER = "Enter coupon code";
+    static APPLY_COUPON_LABEL = "Apply";
+    static REMOVE_COUPON_LABEL = "Remove";
+    static INVALID_COUPON_MESSAGE = "Invalid or expired coupon code.";
+    static COUPON_APPLIED_PREFIX = "Coupon applied:";
+    static CHECKOUT_LABEL = "Proceed to Checkout";
+    static ORDER_PLACED_MESSAGE = "Your order has been placed successfully!";
 
     // Error Boundary Constants
     static ERROR_BOUNDARY_TITLE = "Something went wrong";

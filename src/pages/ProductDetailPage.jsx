@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import StarRating from '../components/common/StarRating';
+import QuantityStepper from '../components/common/QuantityStepper';
 import productStore from '../stores/productStore';
+import cartStore from '../stores/cartStore';
 import AppConstants from '../utils/AppConstants';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorMessage from '../components/common/ErrorMessage';
@@ -12,9 +15,12 @@ import ProductReview from '../components/ProductReview/ProductReview';
 const ProductDetailPage = observer(() => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const toastRef = useRef(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     productStore.fetchProductDataById(productId);
+    setQuantity(1);
   }, [productId]);
 
   if (productStore.detailLoading) {
@@ -33,8 +39,19 @@ const ProductDetailPage = observer(() => {
     return null;
   }
 
+  const handleAddToCart = () => {
+    cartStore.addToCart(product, quantity);
+    toastRef.current?.show({
+      severity: 'success',
+      summary: AppConstants.ADD_TO_CART_TOAST_SUMMARY,
+      detail: `${product.title} ${AppConstants.ADD_TO_CART_TOAST_DETAIL_SUFFIX}`,
+      life: 2500,
+    });
+  }
+
   return (
     <main className="max-w-5xl mx-auto px-4 py-6">
+      <Toast ref={toastRef} />
       <Button
         label={AppConstants.BACK_LABEL}
         icon="pi pi-arrow-left"
@@ -96,10 +113,18 @@ const ProductDetailPage = observer(() => {
               </div>
             )}
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex gap-3 pt-2 items-center flex-wrap">
+              <QuantityStepper
+                value={quantity}
+                onChange={setQuantity}
+                min={1}
+                max={product.stock || undefined}
+              />
               <Button
                 label={AppConstants.ADD_TO_CART_LABEL}
                 icon="pi pi-shopping-cart"
+                onClick={handleAddToCart}
+                disabled={product.stock === 0}
                 className="flex-1 bg-[#1e3a5f] border-0 text-white"
               />
               <Button

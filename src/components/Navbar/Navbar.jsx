@@ -4,8 +4,10 @@ import { observer } from 'mobx-react-lite';
 import { InputText } from 'primereact/inputtext';
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
+import { Badge } from 'primereact/badge';
 import AppConstants from '../../utils/AppConstants';
 import productStore from '../../stores/productStore';
+import cartStore from '../../stores/cartStore';
 
 const Navbar = observer(() => {
   const navigate = useNavigate();
@@ -61,8 +63,11 @@ const Navbar = observer(() => {
 
         {/* Nav Icons */}
         <div className="flex items-center gap-4">
-          <button className="hover:text-blue-300 transition">
+          <button className="relative hover:text-blue-300 transition" onClick={() => navigate('/cart')}>
             <i className="pi pi-shopping-cart text-xl" />
+            {cartStore.totalItems > 0 && (
+              <Badge value={cartStore.totalItems} severity="danger" className="absolute -top-2 -right-2" />
+            )}
           </button>
           <button className="hover:text-blue-300 transition">
             <i className="pi pi-bell text-xl" />
