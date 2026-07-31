@@ -1,24 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { Button } from 'primereact/button';
+import { Image } from 'primereact/image';
+import { Toast } from 'primereact/toast';
 import StarRating from '../components/common/StarRating';
+import QuantityStepper from '../components/common/QuantityStepper';
 import productStore from '../stores/productStore';
+import cartStore from '../stores/cartStore';
 import AppConstants from '../utils/AppConstants';
-import LoadingSpinner from '../components/common/LoadingSpinner';
+import ProductDetailSkeleton from '../components/common/ProductDetailSkeleton';
 import ErrorMessage from '../components/common/ErrorMessage';
 import ProductReview from '../components/ProductReview/ProductReview';
 
 const ProductDetailPage = observer(() => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const toastRef = useRef(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     productStore.fetchProductDataById(productId);
+    setActiveImageIndex(0);
+    setQuantity(1);
   }, [productId]);
 
   if (productStore.detailLoading) {
-    return <LoadingSpinner message={AppConstants.PRODUCT_DETAIL_LOADING_TEXT} />;
+    return (
+      <main className="max-w-5xl mx-auto px-4 py-6">
+        <ProductDetailSkeleton />
+      </main>
+    );
   }
 
   if (productStore.detailError) {
@@ -33,8 +46,21 @@ const ProductDetailPage = observer(() => {
     return null;
   }
 
+  const images = product.images?.length ? product.images : [product.thumbnail];
+
+  const handleAddToCart = () => {
+    cartStore.addToCart(product, quantity);
+    toastRef.current?.show({
+      severity: 'success',
+      summary: AppConstants.ADD_TO_CART_TOAST_SUMMARY,
+      detail: `${product.title} ${AppConstants.ADD_TO_CART_TOAST_DETAIL_SUFFIX}`,
+      life: 2500,
+    });
+  }
+
   return (
     <main className="max-w-5xl mx-auto px-4 py-6">
+      <Toast ref={toastRef} />
       <Button
         label={AppConstants.BACK_LABEL}
         icon="pi pi-arrow-left"
@@ -46,10 +72,11 @@ const ProductDetailPage = observer(() => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-2/5 bg-gray-50 flex items-center justify-center p-8 min-h-72">
-            <img
-              src={product.thumbnail}
+            <Image
+              src={images[activeImageIndex]}
               alt={product.title}
-              className="max-h-64 w-full object-contain"
+              preview
+              imageClassName="max-h-64 w-full object-contain"
             />
           </div>
 
@@ -96,10 +123,18 @@ const ProductDetailPage = observer(() => {
               </div>
             )}
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex gap-3 pt-2 items-center flex-wrap">
+              <QuantityStepper
+                value={quantity}
+                onChange={setQuantity}
+                min={1}
+                max={product.stock || undefined}
+              />
               <Button
                 label={AppConstants.ADD_TO_CART_LABEL}
                 icon="pi pi-shopping-cart"
+                onClick={handleAddToCart}
+                disabled={product.stock === 0}
                 className="flex-1 bg-[#1e3a5f] border-0 text-white"
               />
               <Button
@@ -112,16 +147,18 @@ const ProductDetailPage = observer(() => {
           </div>
         </div>
 
-        {(product.images?.length > 1) && (
+        {images.length > 1 && (
           <div className="border-t border-gray-100 p-4">
             <h3 className="text-sm font-semibold text-gray-700 mb-3">{AppConstants.MORE_IMAGES_LABEL}</h3>
             <div className="flex gap-3 overflow-x-auto pb-2">
-              {product.images.map((img, i) => (
+              {images.map((img, i) => (
                 <img
                   key={i}
                   src={img}
                   alt={`${product.title} view ${i + 1}`}
-                  className="h-20 w-20 object-contain border border-gray-200 rounded-lg bg-gray-50 shrink-0 p-1 hover:border-[#1e3a5f] transition-colors cursor-pointer"
+                  onClick={() => setActiveImageIndex(i)}
+                  className={`h-20 w-20 object-contain border rounded-lg bg-gray-50 shrink-0 p-1 transition-colors cursor-pointer ${i === activeImageIndex ? 'border-[#1e3a5f] border-2' : 'border-gray-200 hover:border-[#1e3a5f]'
+                    }`}
                 />
               ))}
             </div>

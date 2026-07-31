@@ -4,7 +4,6 @@ class AppConstants {
     static SEARCH_BAR_PLACEHOLDER = "Search products...";
 
     // Common Component Constants
-    static LOADING_MESSAGE = "Loading...";
     static RETRY_LABEL = "Retry";
 
     // ProductListing Page Constants
@@ -15,8 +14,17 @@ class AppConstants {
     static FOUND_POSTFIX = 'found';
     static FILTERS_LABEL = "Filters";
 
+    // Sort Constants
+    static SORT_LABEL = "Sort by";
+    static SORT_OPTIONS = [
+        { label: "Default", value: "" },
+        { label: "Price: Low to High", value: "price_asc" },
+        { label: "Price: High to Low", value: "price_desc" },
+        { label: "Highest Rated", value: "rating_desc" },
+        { label: "Newest First", value: "newest" },
+    ];
+
     // ProductDetail Page Constants
-    static PRODUCT_DETAIL_LOADING_TEXT = "Loading product details...";
     static BACK_LABEL = "Back";
     static BRAND_HEADER = "Brand";
     static CATEGORY_HEADER = "Category";
@@ -27,6 +35,8 @@ class AppConstants {
     static ADD_TO_CART_LABEL = "Add to Cart";
     static ADD_TO_WISHLIST_LABEL = "Add to Wishlist";
     static MORE_IMAGES_LABEL = "More Images";
+    static ADD_TO_CART_TOAST_SUMMARY = "Added to cart";
+    static ADD_TO_CART_TOAST_DETAIL_SUFFIX = "has been added to your cart.";
 
     // FilterPanel Constants
     static CLEAR_LABEL = "Clear Filters";
@@ -40,12 +50,40 @@ class AppConstants {
     static BRANDS_HEADER = "Brands";
     static NO_BRANDS_TEXT = "No brands available";
 
-    // ProductGrid Constants
-    static PRODUCT_LOADING_TEXT = "Fetching products...";
-
     // Pagination Constants
     static PREVIOUS_LABEL = "Previous";
     static NEXT_LABEL = "Next";
+
+    // Cart Page Constants
+    static CART_PAGE_TITLE = "Shopping Cart";
+    static CART_EMPTY_TITLE = "Your cart is empty";
+    static CART_EMPTY_SUBTEXT = "Looks like you haven't added anything yet.";
+    static CONTINUE_SHOPPING_LABEL = "Continue Shopping";
+    static REMOVE_LABEL = "Remove";
+    static ITEMS_IN_CART_SUFFIX = "item(s) in cart";
+
+    // Order Summary / Coupon Constants
+    static ORDER_SUMMARY_HEADER = "Order Summary";
+    static SUBTOTAL_LABEL = "Subtotal";
+    static DISCOUNT_LABEL = "Discount";
+    static TOTAL_LABEL = "Total";
+    static COUPON_PLACEHOLDER = "Enter coupon code";
+    static APPLY_COUPON_LABEL = "Apply";
+    static REMOVE_COUPON_LABEL = "Remove";
+    static INVALID_COUPON_MESSAGE = "Invalid or expired coupon code.";
+    static COUPON_APPLIED_PREFIX = "Coupon applied:";
+    static CHECKOUT_LABEL = "Proceed to Checkout";
+    static ORDER_PLACED_MESSAGE = "Your order has been placed successfully!";
+    static VIEW_COUPONS_LABEL = "View All Coupons";
+    static AVAILABLE_COUPONS_HEADER = "Available Coupons";
+    static COUPON_MIN_ORDER_PREFIX = "Add";
+    static COUPON_MIN_ORDER_SUFFIX = "more to your cart to use this coupon.";
+    static COUPON_AUTO_REMOVED_MESSAGE = "Your coupon was removed because the order no longer qualifies for it.";
+    static AVAILABLE_COUPONS = [
+        { code: "SAVE10", type: "percent", value: 10, label: "10% off your order" },
+        { code: "SAVE20", type: "percent", value: 20, label: "20% off your order" },
+        { code: "FLAT50", type: "flat", value: 50, label: "$50 off your order" },
+    ];
 
     // Error Boundary Constants
     static ERROR_BOUNDARY_TITLE = "Something went wrong";
