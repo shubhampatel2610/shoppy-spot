@@ -140,6 +140,50 @@ body {
   font-size: 0.875rem !important;
 }
 
+/* Quantity Stepper (InputNumber) Styles */
+.quantity-stepper.p-inputnumber {
+  display: inline-flex !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+
+.quantity-stepper .p-inputnumber-input {
+  border: none !important;
+  border-left: 1px solid #d1d5db !important;
+  border-right: 1px solid #d1d5db !important;
+  border-radius: 0 !important;
+  padding: 0.4rem 0.25rem !important;
+  font-size: 0.875rem !important;
+  text-align: center;
+}
+
+.quantity-stepper .p-inputnumber-button {
+  width: 2rem !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background-color: #ffffff !important;
+  color: #1e3a5f !important;
+}
+
+.quantity-stepper .p-inputnumber-button .p-button-icon {
+  font-size: 0.7rem !important;
+}
+
+.quantity-stepper .p-inputnumber-button:not(.p-disabled):hover {
+  background-color: rgba(30, 58, 95, 0.06) !important;
+  opacity: 1 !important;
+}
+
+.quantity-stepper.at-max .p-inputnumber-button-up,
+.quantity-stepper.at-min .p-inputnumber-button-down {
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
 /* Dropdown Styles */
 .p-dropdown-item {
   padding: 0.55rem 1rem !important;
