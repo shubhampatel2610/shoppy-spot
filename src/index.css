@@ -224,6 +224,33 @@ body {
   border-radius: 6px !important;
 }
 
+/* Dialog Styles */
+.p-dialog {
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden;
+}
+
+.p-dialog .p-dialog-header {
+  padding: 1.1rem 1.25rem !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.p-dialog .p-dialog-title {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 1.25rem !important;
+}
+
+.p-dialog .p-dialog-footer {
+  padding: 1rem 1.25rem !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
 /* OverlayPanel Styles */
 .p-overlaypanel {
   border-radius: 10px !important;

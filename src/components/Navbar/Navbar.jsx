@@ -39,8 +39,8 @@ const Navbar = observer(() => {
     <header className="bg-[#1e3a5f] text-white shadow-md sticky top-0 z-50">
       <div className="max-w-full mx-auto px-4 h-14 flex items-center gap-4">
         {/* Hamburger */}
-        <button className="text-white hover:text-gray-300 transition">
-          <i className="pi pi-bars text-xl" />
+        <button className="group text-white hover:text-gray-300 transition cursor-pointer">
+          <i className="pi pi-bars text-xl transition-transform group-hover:scale-125" />
         </button>
 
         {/* Logo */}
@@ -73,17 +73,17 @@ const Navbar = observer(() => {
 
         {/* Nav Icons */}
         <div className="flex items-center gap-4">
-          <button className="relative hover:text-blue-300 transition" onClick={() => navigate('/cart')}>
-            <i className="pi pi-shopping-cart text-xl" />
+          <button className="group relative hover:text-blue-300 transition cursor-pointer" onClick={() => navigate('/cart')}>
+            <i className="pi pi-shopping-cart text-xl transition-transform group-hover:scale-125" />
             {cartStore.totalItems > 0 && (
               <Badge value={cartStore.totalItems} severity="danger" className="absolute -top-2 -right-2" />
             )}
           </button>
-          <button className="hover:text-blue-300 transition">
-            <i className="pi pi-bell text-xl" />
+          <button className="group hover:text-blue-300 transition cursor-pointer">
+            <i className="pi pi-bell text-xl transition-transform group-hover:scale-125" />
           </button>
-          <button className="hover:text-blue-300 transition">
-            <i className="pi pi-user text-xl" />
+          <button className="group hover:text-blue-300 transition cursor-pointer" onClick={() => navigate('/user')}>
+            <i className="pi pi-user text-xl transition-transform group-hover:scale-125" />
           </button>
         </div>
       </div>
