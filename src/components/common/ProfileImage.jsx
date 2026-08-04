@@ -1,8 +1,8 @@
 import React from 'react';
-import MalePic from '../../../public/MalePic';
-import FemalePic from '../../../public/FemalePic';
-import OtherPic from '../../../public/OtherPic';
-import EmptyPic from '../../../public/EmptyPic';
+import MalePic from '../svg/MalePic';
+import FemalePic from '../svg/FemalePic';
+import OtherPic from '../svg/OtherPic';
+import EmptyPic from '../svg/EmptyPic';
 
 // Maps a gender value to its avatar SVG, so the picture updates the moment gender changes
 const GENDER_IMAGE_MAP = {

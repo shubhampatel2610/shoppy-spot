@@ -180,6 +180,11 @@ class AppConstants {
     static LOGIN_REQUIRED_BUTTON_LABEL = "Log In";
     static CHECKOUT_LOGIN_REQUIRED_MESSAGE = "Please log in to your account to proceed to checkout.";
 
+    // Unauthorized Page Constants
+    static UNAUTHORIZED_PAGE_TITLE = "Access Restricted";
+    static UNAUTHORIZED_PAGE_MESSAGE = "Your account doesn't have permission to view this page.";
+    static UNAUTHORIZED_PAGE_BUTTON_LABEL = "Back to Login";
+
     // Navbar Auth Constants
     static LOGOUT_LABEL = "Logout";
     static MY_PROFILE_LABEL = "My Profile";

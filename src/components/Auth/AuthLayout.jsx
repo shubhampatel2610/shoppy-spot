@@ -1,5 +1,5 @@
 import React from 'react';
-import AppLogo from '../../../public/AppLogo';
+import AppLogo from '../svg/AppLogo';
 import AppConstants from '../../utils/AppConstants';
 
 // Shared split-panel shell for the Login/Signup pages - a branding panel on the left
