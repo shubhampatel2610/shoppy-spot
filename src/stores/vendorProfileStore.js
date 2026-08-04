@@ -16,6 +16,7 @@ const loadFromStorage = () => {
 class VendorProfileStore {
   profile = loadFromStorage();
   saved = false;
+  isEditDialogOpen = false;
 
   storeNameField = new Field({ name: 'storeName', label: 'Store Name', placeholder: 'Enter your store name', type: 'text', required: true });
   storeDescriptionField = new Field({ name: 'storeDescription', label: 'Store Description', placeholder: 'Describe your store', type: 'text' });
@@ -40,6 +41,17 @@ class VendorProfileStore {
     this.phoneField.setValue(this.profile.phone);
   }
 
+  // Re-hydrate from the last saved profile each time the dialog opens, so a
+  // cancelled edit never leaves stale values behind for next time.
+  openEditDialog = () => {
+    this.hydrateFields();
+    this.isEditDialogOpen = true;
+  }
+
+  closeEditDialog = () => {
+    this.isEditDialogOpen = false;
+  }
+
   saveProfile = () => {
     this.saved = false;
     this.fields.forEach((field) => field.validate());
@@ -62,6 +74,7 @@ class VendorProfileStore {
     }
 
     this.saved = true;
+    this.isEditDialogOpen = false;
     return true;
   }
 }
