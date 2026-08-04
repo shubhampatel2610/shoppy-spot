@@ -20,11 +20,7 @@ const Navbar = observer(() => {
   const userMenuRef = useRef(null);
 
   const handleUserIconClick = (e) => {
-    if (authStore.isAuthenticated) {
-      userMenuRef.current?.toggle(e);
-    } else {
-      navigate('/login');
-    }
+    userMenuRef.current?.toggle(e);
   }
 
   const handleProfileClick = () => {
@@ -101,15 +97,20 @@ const Navbar = observer(() => {
               <Badge value={cartStore.totalItems} severity="danger" className="absolute -top-2 -right-2" />
             )}
           </button>
-          <button className="group hover:text-blue-300 transition cursor-pointer">
-            <i className="pi pi-bell text-xl transition-transform group-hover:scale-125" />
-          </button>
-          <button className="group relative hover:text-blue-300 transition cursor-pointer" onClick={handleUserIconClick}>
-            <i className="pi pi-user text-xl transition-transform group-hover:scale-125" />
-            {authStore.isAuthenticated && (
+          {authStore.isAuthenticated ? (
+            <button className="group relative hover:text-blue-300 transition cursor-pointer" onClick={handleUserIconClick}>
+              <i className="pi pi-user text-xl transition-transform group-hover:scale-125" />
               <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-green-400 border border-[#1e3a5f]" />
-            )}
-          </button>
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate('/login')}
+              className="flex items-center gap-1.5 text-sm font-medium border border-white/40 rounded-full px-3.5 py-1.5 hover:bg-white/10 hover:border-white transition cursor-pointer"
+            >
+              <i className="pi pi-user text-sm" />
+              {AppConstants.SIGN_IN_LABEL}
+            </button>
+          )}
         </div>
       </div>
 
