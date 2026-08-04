@@ -8,7 +8,7 @@ const AuthLayout = (props) => {
   const { title, subtitle, titleExtra, children, footer } = props;
 
   return (
-    <main className="min-h-[calc(100vh-3.5rem)] flex">
+    <main className="min-h-screen flex">
       <div className="hidden lg:flex lg:w-1/2 bg-[#1e3a5f] relative overflow-hidden flex-col justify-between p-10 text-white">
         <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-white/5" />
         <div className="absolute bottom-10 -left-16 w-56 h-56 rounded-full bg-white/5" />

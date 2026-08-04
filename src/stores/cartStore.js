@@ -37,7 +37,11 @@ class CartStore {
 
   persist = () => {
     try {
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(this.items));
+      if (this.items.length === 0) {
+        localStorage.removeItem(CART_STORAGE_KEY);
+      } else {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(this.items));
+      }
     } catch {
       // storage unavailable (e.g. private browsing quota) - cart still works in-memory
     }

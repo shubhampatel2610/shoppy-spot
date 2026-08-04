@@ -2,6 +2,8 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import AppConstants from '../utils/AppConstants';
 import Field from '../models/Field';
 import authData from '../data/authData';
+import cartStore from './cartStore';
+import { clearAllCookies } from '../utils/helperFunctions';
 
 const AUTH_STORAGE_KEY = 'shoppy-spot-auth';
 
@@ -170,9 +172,13 @@ class AuthStore {
     this.persist();
   }
 
+  // Wipes the session plus every other piece of app data in storage, so logging out
+  // leaves no trace of the previous user in cookies or localStorage.
   logout = () => {
     this.session = null;
     this.persist();
+    cartStore.clearCart();
+    clearAllCookies();
   }
 }
 
