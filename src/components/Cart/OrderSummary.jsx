@@ -7,7 +7,7 @@ import cartStore from '../../stores/cartStore';
 import AppConstants from '../../utils/AppConstants';
 
 const OrderSummary = observer((props) => {
-  const { onCheckout } = props;
+  const { onCheckout, buttonLabel = AppConstants.CHECKOUT_LABEL } = props;
   const couponListRef = useRef(null);
 
   const handleSelectCoupon = (code) => {
@@ -121,7 +121,7 @@ const OrderSummary = observer((props) => {
       </div>
 
       <Button
-        label={AppConstants.CHECKOUT_LABEL}
+        label={buttonLabel}
         icon="pi pi-lock"
         onClick={onCheckout}
         className="w-full h-10 text-sm bg-[#1e3a5f] border-0 text-white"

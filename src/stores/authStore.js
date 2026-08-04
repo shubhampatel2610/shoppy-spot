@@ -47,6 +47,13 @@ class AuthStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    // Rehydrate the cart from storage only for a returning logged-in session -
+    // a guest's cart never touches storage, so there's nothing to load otherwise.
+    if (this.session) {
+      cartStore.enablePersistence();
+      cartStore.loadFromStorage();
+    }
   }
 
   get isAuthenticated() {
@@ -170,6 +177,10 @@ class AuthStore {
     const { id, name, email, role } = user;
     this.session = { user: { id, name, email, role }, sessionId: generateSessionId() };
     this.persist();
+
+    // Whatever was in the guest cart now belongs to this account - start saving it.
+    cartStore.enablePersistence();
+    cartStore.persist();
   }
 
   // Wipes the session plus every other piece of app data in storage, so logging out
@@ -177,7 +188,8 @@ class AuthStore {
   logout = () => {
     this.session = null;
     this.persist();
-    cartStore.clearCart();
+    cartStore.clearCart(); // still persistent here, so this also removes the stored cart
+    cartStore.disablePersistence(); // any items added while logged out stay session-only
     clearAllCookies();
   }
 }

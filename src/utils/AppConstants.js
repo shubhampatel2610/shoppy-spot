@@ -74,6 +74,9 @@ class AppConstants {
     static COUPON_APPLIED_PREFIX = "Coupon applied:";
     static CHECKOUT_LABEL = "Proceed to Checkout";
     static ORDER_PLACED_MESSAGE = "Your order has been placed successfully!";
+    static CHECKOUT_PAGE_TITLE = "Checkout";
+    static PLACE_ORDER_LABEL = "Place Order";
+    static ORDER_PLACED_TITLE = "Order Placed!";
     static VIEW_COUPONS_LABEL = "View All Coupons";
     static AVAILABLE_COUPONS_HEADER = "Available Coupons";
     static COUPON_MIN_ORDER_PREFIX = "Add";

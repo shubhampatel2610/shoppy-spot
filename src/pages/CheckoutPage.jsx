@@ -1,26 +1,37 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import cartStore from '../stores/cartStore';
 import AppConstants from '../utils/AppConstants';
 import CartItemRow from '../components/Cart/CartItemRow';
 import OrderSummary from '../components/Cart/OrderSummary';
 
-const CartPage = observer(() => {
+const CheckoutPage = observer(() => {
   const navigate = useNavigate();
+  const toastRef = useRef(null);
+  const [isOrderPlaced, setIsOrderPlaced] = useState(false);
 
-  const handleProceedToCheckout = () => {
-    navigate('/checkout');
+  const handlePlaceOrder = () => {
+    toastRef.current?.show({
+      severity: 'success',
+      summary: AppConstants.ORDER_PLACED_TITLE,
+      detail: AppConstants.ORDER_PLACED_MESSAGE,
+      life: 3000,
+    });
+    cartStore.clearCart();
+    setIsOrderPlaced(true);
   }
 
-  if (cartStore.isEmpty) {
+  if (isOrderPlaced) {
     return (
-      <main className="max-w-5xl mx-auto px-4 py-16">
+      <main className="max-w-3xl mx-auto px-4 py-16">
+        <Toast ref={toastRef} />
         <div className="flex flex-col items-center justify-center gap-3 text-center">
-          <i className="pi pi-shopping-cart text-5xl text-gray-300" />
-          <h1 className="text-lg font-bold text-gray-800">{AppConstants.CART_EMPTY_TITLE}</h1>
-          <p className="text-sm text-gray-400">{AppConstants.CART_EMPTY_SUBTEXT}</p>
+          <i className="pi pi-check-circle text-5xl text-green-500" />
+          <h1 className="text-lg font-bold text-gray-800">{AppConstants.ORDER_PLACED_TITLE}</h1>
+          <p className="text-sm text-gray-400">{AppConstants.ORDER_PLACED_MESSAGE}</p>
           <Button
             label={AppConstants.CONTINUE_SHOPPING_LABEL}
             icon="pi pi-arrow-left"
@@ -32,9 +43,14 @@ const CartPage = observer(() => {
     )
   }
 
+  if (cartStore.isEmpty) {
+    return <Navigate to="/cart" replace />;
+  }
+
   return (
     <main className="max-w-5xl mx-auto px-4 py-6">
-      <h1 className="text-lg font-bold text-gray-800 mb-1">{AppConstants.CART_PAGE_TITLE}</h1>
+      <Toast ref={toastRef} />
+      <h1 className="text-lg font-bold text-gray-800 mb-1">{AppConstants.CHECKOUT_PAGE_TITLE}</h1>
       <p className="text-xs text-gray-400 mb-4">
         {`${cartStore.totalItems} ${AppConstants.ITEMS_IN_CART_SUFFIX}`}
       </p>
@@ -47,11 +63,11 @@ const CartPage = observer(() => {
         </div>
 
         <div className="w-full md:w-72 shrink-0">
-          <OrderSummary onCheckout={handleProceedToCheckout} />
+          <OrderSummary onCheckout={handlePlaceOrder} buttonLabel={AppConstants.PLACE_ORDER_LABEL} />
         </div>
       </div>
     </main>
   )
 })
 
-export default CartPage;
+export default CheckoutPage;

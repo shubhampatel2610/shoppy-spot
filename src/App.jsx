@@ -4,9 +4,11 @@ import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './pages/ProductListingPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
 import UserDetailsPage from './pages/UserDetailsPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
 
 // Routes that render their own full-page layout, without the shared navbar.
 const NAVBAR_HIDDEN_ROUTES = ['/login', '/signup'];
@@ -22,6 +24,7 @@ const App = () => {
         <Route path="/" element={<ProductListingPage />} />
         <Route path="/product/:productId" element={<ProductDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
         <Route path="/user" element={<UserDetailsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />

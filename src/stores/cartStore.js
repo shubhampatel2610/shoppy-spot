@@ -24,7 +24,11 @@ const loadItemsFromStorage = () => {
 
 class CartStore {
   // Each item: { id, title, price, thumbnail, stock, quantity }
-  items = loadItemsFromStorage();
+  // Starts empty (not hydrated from storage) - guests get a session-only cart until they log in.
+  items = [];
+
+  // Only a logged-in user's cart is written to localStorage - authStore toggles this on login/logout.
+  isPersistent = false;
 
   // Coupon Constants
   couponInput = '';
@@ -35,7 +39,22 @@ class CartStore {
     makeAutoObservable(this);
   }
 
+  enablePersistence = () => {
+    this.isPersistent = true;
+  }
+
+  disablePersistence = () => {
+    this.isPersistent = false;
+  }
+
+  loadFromStorage = () => {
+    this.items = loadItemsFromStorage();
+  }
+
   persist = () => {
+    if (!this.isPersistent) {
+      return;
+    }
     try {
       if (this.items.length === 0) {
         localStorage.removeItem(CART_STORAGE_KEY);
