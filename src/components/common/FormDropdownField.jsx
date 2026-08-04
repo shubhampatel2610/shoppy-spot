@@ -14,6 +14,8 @@ const FormDropdownField = observer((props) => {
       <Dropdown
         value={field.value}
         options={options}
+        optionLabel="label"
+        optionValue="value"
         placeholder={field.placeholder}
         onChange={(e) => field.setValue(e.value)}
         onHide={() => field.validate()}
