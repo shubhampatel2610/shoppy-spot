@@ -74,6 +74,9 @@ class AppConstants {
     static COUPON_APPLIED_PREFIX = "Coupon applied:";
     static CHECKOUT_LABEL = "Proceed to Checkout";
     static ORDER_PLACED_MESSAGE = "Your order has been placed successfully!";
+    static CHECKOUT_PAGE_TITLE = "Checkout";
+    static PLACE_ORDER_LABEL = "Place Order";
+    static ORDER_PLACED_TITLE = "Order Placed!";
     static VIEW_COUPONS_LABEL = "View All Coupons";
     static AVAILABLE_COUPONS_HEADER = "Available Coupons";
     static COUPON_MIN_ORDER_PREFIX = "Add";
@@ -133,6 +136,55 @@ class AppConstants {
     static CANCEL_LABEL = "Cancel";
     static NOT_PROVIDED_TEXT = "Not provided";
     static NO_ADDRESS_TEXT = "No address added yet";
+
+    // Auth Field Constants
+    static NAME_FIELD = { name: "name", label: "Full Name", placeholder: "Enter your full name", type: "text" };
+    static AUTH_EMAIL_FIELD = { name: "email", label: "Email", placeholder: "Enter your email address", type: "email" };
+    static PASSWORD_FIELD = { name: "password", label: "Password", placeholder: "Enter your password", type: "password" };
+    static CONFIRM_PASSWORD_FIELD = { name: "confirmPassword", label: "Confirm Password", placeholder: "Re-enter your password", type: "password" };
+
+    // Login Page Constants
+    static LOGIN_TITLE = "Welcome Back";
+    static LOGIN_SUBTITLE = "Sign in to continue to your account";
+    static SIGN_IN_LABEL = "Sign In";
+    static SIGNING_IN_LABEL = "Signing in...";
+    static NO_ACCOUNT_TEXT = "Don't have an account?";
+    static SIGN_UP_LABEL = "Sign Up";
+    static INVALID_CREDENTIALS_MESSAGE = "Invalid email or password. Try one of the demo accounts.";
+    static DEMO_CREDENTIALS_TOOLTIP_HEADER = "Demo Login Credentials";
+    static DEMO_CREDENTIALS_HINT_TEXT = "Click an account to autofill the form.";
+    static DEMO_ACCOUNTS = [
+        { role: "Admin", email: "admin@shoppyspot.com", password: "Admin@123" },
+        { role: "Vendor", email: "vendor@shoppyspot.com", password: "Vendor@123" },
+        { role: "Customer", email: "customer@shoppyspot.com", password: "Customer@123" },
+    ];
+
+    // Signup Page Constants
+    static SIGNUP_TITLE = "Create Account";
+    static SIGNUP_SUBTITLE = "Sign up to start shopping with ShoppySpot";
+    static CREATE_ACCOUNT_LABEL = "Create Account";
+    static CREATING_ACCOUNT_LABEL = "Creating account...";
+    static HAVE_ACCOUNT_TEXT = "Already have an account?";
+    static EMAIL_ALREADY_EXISTS_MESSAGE = "An account with this email already exists.";
+    static PASSWORD_MISMATCH_MESSAGE = "Passwords do not match.";
+    static SIGNUP_SUCCESS_TOAST_SUMMARY = "Account created";
+    static SIGNUP_SUCCESS_TOAST_DETAIL = "Welcome to ShoppySpot!";
+
+    // Auth Branding Panel Constants
+    static AUTH_BRAND_HEADLINE = "Shop smarter, faster, better.";
+    static AUTH_BRAND_SUBTEXT = "Join thousands of shoppers discovering great products every day.";
+
+    // Login Required Dialog Constants
+    static LOGIN_REQUIRED_TITLE = "Login Required";
+    static LOGIN_REQUIRED_MESSAGE = "Please log in to your account to continue.";
+    static LOGIN_REQUIRED_BUTTON_LABEL = "Log In";
+    static CHECKOUT_LOGIN_REQUIRED_MESSAGE = "Please log in to your account to proceed to checkout.";
+
+    // Navbar Auth Constants
+    static LOGOUT_LABEL = "Logout";
+    static MY_PROFILE_LABEL = "My Profile";
+    static LOGGED_OUT_TOAST_SUMMARY = "Logged out";
+    static LOGGED_OUT_TOAST_DETAIL = "You have been signed out successfully.";
 
     // API / HTTP Error Constants
     static NETWORK_ERROR_MESSAGE = "Unable to connect to the server. Please check your internet connection.";

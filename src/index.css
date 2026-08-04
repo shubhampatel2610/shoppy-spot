@@ -69,6 +69,21 @@ body {
   box-shadow: 0 0 0 2px rgba(30, 58, 95, 0.15) !important;
 }
 
+/* Password Styles */
+.p-password {
+  width: 100% !important;
+  display: flex !important;
+}
+
+.p-password-input {
+  width: 100% !important;
+}
+
+.p-password .p-password-show-icon,
+.p-password .p-password-hide-icon {
+  color: #9ca3af !important;
+}
+
 /* IconField & InputIcon Styles */
 .p-icon-field {
   position: relative;

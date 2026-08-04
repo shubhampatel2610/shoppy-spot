@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import userStore from '../stores/userStore';
+import authStore from '../stores/authStore';
 import AppConstants from '../utils/AppConstants';
 import ProfileImage from '../components/common/ProfileImage';
 import InfoRow from '../components/UserDetails/InfoRow';
@@ -36,7 +37,14 @@ const UserDetailsPage = observer(() => {
           <div className="flex items-center gap-4">
             <ProfileImage gender={profile.gender} size={72} />
             <div>
-              <p className="text-base font-bold text-gray-800">{fullName || AppConstants.NOT_PROVIDED_TEXT}</p>
+              <div className="flex items-center gap-2">
+                <p className="text-base font-bold text-gray-800">{fullName || AppConstants.NOT_PROVIDED_TEXT}</p>
+                {authStore.currentUser?.role && (
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-[#1e3a5f] bg-[#1e3a5f]/10 rounded-full px-2 py-0.5">
+                    {authStore.currentUser.role}
+                  </span>
+                )}
+              </div>
               <p className="text-xs text-gray-400">{profile.email}</p>
             </div>
           </div>
