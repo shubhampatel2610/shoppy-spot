@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import authStore from '../stores/authStore';
 import AppConstants from '../utils/AppConstants';
@@ -11,8 +11,6 @@ import FormPasswordField from '../components/common/FormPasswordField';
 
 const LoginPage = observer(() => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const redirectTo = location.state?.from ?? '/';
 
   useEffect(() => {
     authStore.clearError();
@@ -27,7 +25,9 @@ const LoginPage = observer(() => {
     e.preventDefault();
     const success = await authStore.login();
     if (success) {
-      navigate(redirectTo, { replace: true });
+      // Always land on the product listing after login, regardless of where the
+      // login flow was triggered from (navbar, checkout gate, etc).
+      navigate('/', { replace: true });
     }
   }
 

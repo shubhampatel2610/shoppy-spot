@@ -23,7 +23,7 @@ const Navbar = observer(() => {
     if (authStore.isAuthenticated) {
       userMenuRef.current?.toggle(e);
     } else {
-      navigate('/login', { state: { from: location.pathname } });
+      navigate('/login');
     }
   }
 
