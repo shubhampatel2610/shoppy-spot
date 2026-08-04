@@ -25,9 +25,11 @@ const LoginPage = observer(() => {
     e.preventDefault();
     const success = await authStore.login();
     if (success) {
-      // Always land on the product listing after login, regardless of where the
-      // login flow was triggered from (navbar, checkout gate, etc).
-      navigate('/', { replace: true });
+      // Landing page depends on role: customers go to the catalog, vendors go to
+      // their dashboard, anything else has no home yet.
+      const role = authStore.currentUser?.role;
+      const destination = role === 'customer' ? '/' : role === 'vendor' ? '/vendor/dashboard' : '/unauthorized';
+      navigate(destination, { replace: true });
     }
   }
 
