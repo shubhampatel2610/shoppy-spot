@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { InputText } from 'primereact/inputtext';
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
 import { Badge } from 'primereact/badge';
+import { OverlayPanel } from 'primereact/overlaypanel';
 import AppConstants from '../../utils/AppConstants';
 import productStore from '../../stores/productStore';
 import cartStore from '../../stores/cartStore';
+import authStore from '../../stores/authStore';
 import AppLogo from '../common/AppLogo';
 
 const Navbar = observer(() => {
@@ -15,6 +17,26 @@ const Navbar = observer(() => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const search = productStore.searchQuery;
+  const userMenuRef = useRef(null);
+
+  const handleUserIconClick = (e) => {
+    if (authStore.isAuthenticated) {
+      userMenuRef.current?.toggle(e);
+    } else {
+      navigate('/login', { state: { from: location.pathname } });
+    }
+  }
+
+  const handleProfileClick = () => {
+    userMenuRef.current?.hide();
+    navigate('/user');
+  }
+
+  const handleLogout = () => {
+    userMenuRef.current?.hide();
+    authStore.logout();
+    navigate('/');
+  }
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -82,11 +104,45 @@ const Navbar = observer(() => {
           <button className="group hover:text-blue-300 transition cursor-pointer">
             <i className="pi pi-bell text-xl transition-transform group-hover:scale-125" />
           </button>
-          <button className="group hover:text-blue-300 transition cursor-pointer" onClick={() => navigate('/user')}>
+          <button className="group relative hover:text-blue-300 transition cursor-pointer" onClick={handleUserIconClick}>
             <i className="pi pi-user text-xl transition-transform group-hover:scale-125" />
+            {authStore.isAuthenticated && (
+              <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-green-400 border border-[#1e3a5f]" />
+            )}
           </button>
         </div>
       </div>
+
+      {authStore.isAuthenticated && (
+        <OverlayPanel ref={userMenuRef} className="w-64">
+          <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
+            <div className="w-10 h-10 rounded-full bg-[#1e3a5f]/10 text-[#1e3a5f] flex items-center justify-center font-bold shrink-0">
+              {authStore.currentUser?.name?.charAt(0)?.toUpperCase()}
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-gray-800 truncate">{authStore.currentUser?.name}</p>
+              <p className="text-xs text-gray-400 truncate">{authStore.currentUser?.email}</p>
+              <span className="inline-block mt-1 text-[10px] font-semibold uppercase tracking-wide text-[#1e3a5f] bg-[#1e3a5f]/10 rounded-full px-2 py-0.5">
+                {authStore.currentUser?.role}
+              </span>
+            </div>
+          </div>
+          <div className="pt-2 space-y-0.5">
+            <button
+              onClick={handleProfileClick}
+              className="w-full text-left flex items-center gap-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#1e3a5f] rounded-lg px-2.5 py-2 transition cursor-pointer"
+            >
+              <i className="pi pi-user" /> {AppConstants.MY_PROFILE_LABEL}
+            </button>
+            <button
+              onClick={handleLogout}
+              className="w-full text-left flex items-center gap-2 text-sm text-red-500 hover:bg-red-50 rounded-lg px-2.5 py-2 transition cursor-pointer"
+            >
+              <i className="pi pi-sign-out" /> {AppConstants.LOGOUT_LABEL}
+            </button>
+          </div>
+        </OverlayPanel>
+      )}
     </header>
   )
 })
