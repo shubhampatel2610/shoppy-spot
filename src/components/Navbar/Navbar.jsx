@@ -10,7 +10,7 @@ import AppConstants from '../../utils/AppConstants';
 import productStore from '../../stores/productStore';
 import cartStore from '../../stores/cartStore';
 import authStore from '../../stores/authStore';
-import AppLogo from '../common/AppLogo';
+import AppLogo from '../../../public/AppLogo';
 
 const Navbar = observer(() => {
   const navigate = useNavigate();
