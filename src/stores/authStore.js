@@ -35,6 +35,10 @@ class AuthStore {
   isSubmitting = false;
   errorMessage = '';
 
+  // Global "please log in" prompt - see requireLogin() below
+  isLoginPromptVisible = false;
+  loginPromptMessage = AppConstants.LOGIN_REQUIRED_MESSAGE;
+
   // Login Fields
   loginEmailField = new Field({ ...AppConstants.AUTH_EMAIL_FIELD, required: true });
   loginPasswordField = new Field({ ...AppConstants.PASSWORD_FIELD, required: true });
@@ -86,6 +90,23 @@ class AuthStore {
 
   clearError = () => {
     this.errorMessage = '';
+  }
+
+  // Gate for any login-only action, callable from anywhere (a click handler, a store
+  // method): returns true if already logged in, otherwise pops the shared login-required
+  // dialog and returns false so the caller can bail out.
+  //   if (!authStore.requireLogin()) return;
+  requireLogin = (message = AppConstants.LOGIN_REQUIRED_MESSAGE) => {
+    if (this.isAuthenticated) {
+      return true;
+    }
+    this.loginPromptMessage = message;
+    this.isLoginPromptVisible = true;
+    return false;
+  }
+
+  hideLoginPrompt = () => {
+    this.isLoginPromptVisible = false;
   }
 
   resetLoginFields = () => {

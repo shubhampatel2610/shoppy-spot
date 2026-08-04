@@ -174,6 +174,12 @@ class AppConstants {
     static AUTH_BRAND_HEADLINE = "Shop smarter, faster, better.";
     static AUTH_BRAND_SUBTEXT = "Join thousands of shoppers discovering great products every day.";
 
+    // Login Required Dialog Constants
+    static LOGIN_REQUIRED_TITLE = "Login Required";
+    static LOGIN_REQUIRED_MESSAGE = "Please log in to your account to continue.";
+    static LOGIN_REQUIRED_BUTTON_LABEL = "Log In";
+    static CHECKOUT_LOGIN_REQUIRED_MESSAGE = "Please log in to your account to proceed to checkout.";
+
     // Navbar Auth Constants
     static LOGOUT_LABEL = "Logout";
     static MY_PROFILE_LABEL = "My Profile";

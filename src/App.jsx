@@ -9,6 +9,7 @@ import UserDetailsPage from './pages/UserDetailsPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+import LoginRequiredDialog from './components/Auth/LoginRequiredDialog';
 
 // Routes that render their own full-page layout, without the shared navbar.
 const NAVBAR_HIDDEN_ROUTES = ['/login', '/signup'];
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {!hideNavbar && <Navbar />}
+      <LoginRequiredDialog />
       <Routes>
         <Route path="/" element={<ProductListingPage />} />
         <Route path="/product/:productId" element={<ProductDetailPage />} />

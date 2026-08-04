@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import cartStore from '../stores/cartStore';
+import authStore from '../stores/authStore';
 import AppConstants from '../utils/AppConstants';
 import CartItemRow from '../components/Cart/CartItemRow';
 import OrderSummary from '../components/Cart/OrderSummary';
@@ -11,7 +12,9 @@ const CartPage = observer(() => {
   const navigate = useNavigate();
 
   const handleProceedToCheckout = () => {
-    navigate('/checkout');
+    if (authStore.requireLogin(AppConstants.CHECKOUT_LOGIN_REQUIRED_MESSAGE)) {
+      navigate('/checkout');
+    }
   }
 
   if (cartStore.isEmpty) {
