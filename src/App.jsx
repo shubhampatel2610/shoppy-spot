@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './pages/ProductListingPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -33,11 +33,13 @@ const App = () => {
       {!hideNavbar && <Navbar />}
       <LoginRequiredDialog />
       <Routes>
-        <Route path="/" element={<ProtectedRoute allowedRoles={['customer']}><ProductListingPage /></ProtectedRoute>} />
-        <Route path="/product/:productId" element={<ProtectedRoute allowedRoles={['customer']}><ProductDetailPage /></ProtectedRoute>} />
-        <Route path="/cart" element={<ProtectedRoute allowedRoles={['customer']}><CartPage /></ProtectedRoute>} />
-        <Route path="/checkout" element={<ProtectedRoute allowedRoles={['customer']}><CheckoutPage /></ProtectedRoute>} />
-        <Route path="/user" element={<ProtectedRoute allowedRoles={['customer']}><UserDetailsPage /></ProtectedRoute>} />
+        <Route element={<ProtectedRoute allowedRoles={['customer']}><Outlet /></ProtectedRoute>}>
+          <Route path="/" element={<ProductListingPage />} />
+          <Route path="/product/:productId" element={<ProductDetailPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/user" element={<UserDetailsPage />} />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
