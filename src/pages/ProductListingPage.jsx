@@ -64,7 +64,11 @@ const ProductListingPage = observer(() => {
           <ProductGrid />
 
           {/* Pagination */}
-          <Pagination />
+          <Pagination
+            currentPage={productStore.currentPage}
+            totalPages={productStore.totalPages}
+            onPageChange={productStore.setPage}
+          />
         </div>
       </div>
     </main>

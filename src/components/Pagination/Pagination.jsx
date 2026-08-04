@@ -1,10 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import productStore from '../../stores/productStore';
 import AppConstants from '../../utils/AppConstants';
 
-const Pagination = observer(() => {
-  const { currentPage, totalPages, setPage } = productStore;
+// Generic pager - caller owns the page state (currentPage/totalPages/onPageChange).
+const Pagination = observer((props) => {
+  const { currentPage, totalPages, onPageChange: setPage } = props;
 
   if (totalPages <= 1) {
     return null;
