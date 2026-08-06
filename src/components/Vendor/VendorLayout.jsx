@@ -110,7 +110,7 @@ const VendorLayout = observer((props) => {
         </div>
       </aside>
 
-      {/* Each page owns its own scroll region (see VendorPageShell) so a sticky
+      {/* Each page owns its own scroll region (see PageShell) so a sticky
           header + filters row can stay put while only the listing below it scrolls. */}
       <main className="flex-1 min-w-0 min-h-0 overflow-hidden p-4 md:h-full md:p-6">{children}</main>
     </div>

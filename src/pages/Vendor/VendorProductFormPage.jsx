@@ -8,7 +8,7 @@ import vendorProductStore from '../../stores/vendorProductStore';
 import FormInputField from '../../components/common/FormInputField';
 import FormDropdownField from '../../components/common/FormDropdownField';
 import CategoryComboField from '../../components/Vendor/CategoryComboField';
-import VendorPageShell from '../../components/Vendor/VendorPageShell';
+import PageShell from '../../components/common/PageShell';
 
 const STATUS_OPTIONS = [
   { label: 'Draft', value: 'draft' },
@@ -63,7 +63,7 @@ const VendorProductFormPage = observer(() => {
   );
 
   return (
-    <VendorPageShell header={header} className="max-w-3xl">
+    <PageShell header={header}>
       <Toast ref={toastRef} />
       <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 space-y-4" noValidate>
         <FormInputField field={vendorProductStore.titleField} />
@@ -110,7 +110,7 @@ const VendorProductFormPage = observer(() => {
           />
         </div>
       </form>
-    </VendorPageShell>
+    </PageShell>
   )
 })
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { ORDER_STATUS_BADGE_CLASS } from '../../utils/vendorOrderConstants';
-import StatusBadge from './StatusBadge';
+import StatusBadge from '../common/StatusBadge';
 
 // Single order row for VendorOrderListPage.
 const OrderCard = (props) => {

@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import vendorReviewsData from '../../data/vendorReviewsData';
-import SearchBox from '../../components/Vendor/SearchBox';
+import SearchBox from '../../components/common/SearchBox';
 import ReviewGroup from '../../components/Vendor/ReviewGroup';
-import VendorPageShell from '../../components/Vendor/VendorPageShell';
+import PageShell from '../../components/common/PageShell';
 import useDebouncedValue from '../../hooks/useDebouncedValue';
 
 // Groups the flat review list by product, once - reused for both the initial
@@ -50,7 +50,7 @@ const VendorReviewsPage = () => {
   );
 
   return (
-    <VendorPageShell header={header}>
+    <PageShell header={header}>
       {visibleGroups.length === 0 ? (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-10 text-center text-sm text-gray-400">
           No reviews found.
@@ -62,7 +62,7 @@ const VendorReviewsPage = () => {
           ))}
         </div>
       )}
-    </VendorPageShell>
+    </PageShell>
   )
 }
 
