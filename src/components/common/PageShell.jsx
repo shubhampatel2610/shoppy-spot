@@ -1,9 +1,9 @@
 import React from 'react';
 
-// Standard frame for every /vendor/* page: a `header` slot (title, "Add" button,
-// search/filter row) pinned to the top, with only the content below it scrolling.
+// Standard frame for every /vendor/* and /admin/* page: a `header` slot (title, "Add"
+// button, search/filter row) pinned to the top, with only the content below it scrolling.
 // Keeps that split consistent across pages instead of each one reimplementing it.
-const VendorPageShell = (props) => {
+const PageShell = (props) => {
   const { header, children, className = '' } = props;
 
   return (
@@ -14,4 +14,4 @@ const VendorPageShell = (props) => {
   )
 }
 
-export default VendorPageShell;
+export default PageShell;
