@@ -3,20 +3,23 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import vendorProductStore from '../../stores/vendorProductStore';
+import componentStore from '../../stores/componentStore';
 import Pagination from '../../components/Pagination/Pagination';
 import FormDropdownField from '../../components/common/FormDropdownField';
-import SearchBox from '../../components/Vendor/SearchBox';
+import SearchBox from '../../components/common/SearchBox';
 import ProductRow from '../../components/Vendor/ProductRow';
-import VendorPageShell from '../../components/Vendor/VendorPageShell';
+import PageShell from '../../components/common/PageShell';
 import { PRODUCT_STATUS_FILTER_OPTIONS } from '../../utils/vendorProductConstants';
 
 const VendorProductListPage = observer(() => {
   const navigate = useNavigate();
 
   const handleDelete = (product) => {
-    if (window.confirm(`Delete "${product.title}"? This cannot be undone.`)) {
-      vendorProductStore.deleteProduct(product.id);
-    }
+    componentStore.openConfirmDialog({
+      header: 'Delete Product',
+      message: `Delete "${product.title}"? This cannot be undone.`,
+      onConfirm: () => vendorProductStore.deleteProduct(product.id),
+    });
   }
 
   const header = (
@@ -49,7 +52,7 @@ const VendorProductListPage = observer(() => {
   );
 
   return (
-    <VendorPageShell header={header}>
+    <PageShell header={header}>
       {vendorProductStore.paginatedProducts.length === 0 ? (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-10 text-center text-sm text-gray-400">
           No products found.
@@ -72,7 +75,7 @@ const VendorProductListPage = observer(() => {
         totalPages={vendorProductStore.totalPages}
         onPageChange={vendorProductStore.setPage}
       />
-    </VendorPageShell>
+    </PageShell>
   )
 })
 
