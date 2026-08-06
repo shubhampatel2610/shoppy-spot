@@ -7,8 +7,8 @@ import RevenueChart from '../../components/Vendor/RevenueChart';
 import OrderStatusChart from '../../components/Vendor/OrderStatusChart';
 import TopProductsChart from '../../components/Vendor/TopProductsChart';
 import StockSnapshotChart from '../../components/Vendor/StockSnapshotChart';
-import StatCard from '../../components/Vendor/StatCard';
-import VendorPageShell from '../../components/Vendor/VendorPageShell';
+import StatCard from '../../components/common/StatCard';
+import PageShell from '../../components/common/PageShell';
 import {
   DASHBOARD_RANGES,
   filterOrdersInRange,
@@ -43,7 +43,7 @@ const VendorDashboardPage = observer(() => {
   );
 
   return (
-    <VendorPageShell header={header}>
+    <PageShell header={header}>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
         <StatCard icon="pi-dollar" label={`Revenue (${rangeConfig.label.toLowerCase()})`} value={`$${totalRevenue.toFixed(2)}`} />
         <StatCard icon="pi-shopping-bag" label={`Orders (${rangeConfig.label.toLowerCase()})`} value={ordersInRange.length} />
@@ -57,7 +57,7 @@ const VendorDashboardPage = observer(() => {
         <TopProductsChart products={topProducts} />
         <StockSnapshotChart products={activeProducts} />
       </div>
-    </VendorPageShell>
+    </PageShell>
   )
 })
 

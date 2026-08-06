@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import vendorOrderStore from '../../stores/vendorOrderStore';
-import StatusBadge from '../../components/Vendor/StatusBadge';
-import VendorPageShell from '../../components/Vendor/VendorPageShell';
+import StatusBadge from '../../components/common/StatusBadge';
+import PageShell from '../../components/common/PageShell';
 import { ORDER_STATUS_BADGE_CLASS } from '../../utils/vendorOrderConstants';
 
 const NEXT_STATUS_LABEL = {
@@ -45,7 +45,7 @@ const VendorOrderDetailPage = observer(() => {
   );
 
   return (
-    <VendorPageShell header={header} className="max-w-3xl">
+    <PageShell header={header}>
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 mb-4">
         <h2 className="text-sm font-bold text-gray-800 mb-2">Customer & Shipping</h2>
         <p className="text-sm text-gray-700">{order.customerName}</p>
@@ -83,7 +83,7 @@ const VendorOrderDetailPage = observer(() => {
           <span className="text-sm font-bold text-gray-800">Total: ${order.total.toFixed(2)}</span>
         </div>
       </div>
-    </VendorPageShell>
+    </PageShell>
   )
 })
 

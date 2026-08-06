@@ -6,19 +6,22 @@ import AppLogo from '../svg/AppLogo';
 import AppConstants from '../../utils/AppConstants';
 
 const NAV_ITEMS = [
-  { to: '/vendor/dashboard', icon: 'pi-chart-line', label: 'Dashboard' },
-  { to: '/vendor/products', icon: 'pi-box', label: 'Products' },
-  { to: '/vendor/orders', icon: 'pi-shopping-bag', label: 'Orders' },
-  { to: '/vendor/reviews', icon: 'pi-star', label: 'Reviews' },
-  { to: '/vendor/settings', icon: 'pi-cog', label: 'Settings' },
+  { to: '/admin/dashboard', icon: 'pi-chart-line', label: 'Dashboard' },
+  { to: '/admin/vendors', icon: 'pi-shop', label: 'Vendors' },
+  { to: '/admin/customers', icon: 'pi-users', label: 'Customers' },
+  { to: '/admin/products', icon: 'pi-box', label: 'Products' },
+  { to: '/admin/orders', icon: 'pi-shopping-bag', label: 'Orders' },
+  { to: '/admin/reviews', icon: 'pi-star', label: 'Reviews' },
+  { to: '/admin/categories', icon: 'pi-tags', label: 'Categories' },
+  { to: '/admin/coupons', icon: 'pi-ticket', label: 'Coupons' },
+  { to: '/admin/settings', icon: 'pi-cog', label: 'Settings' },
 ];
 
-// Sidebar shell for the vendor portal, rendered instead of the customer Navbar
-// on every /vendor/* route (see App.jsx). Below md it becomes an off-canvas
-// drawer behind a hamburger button; at md and up it's the original always-visible
-// sidebar (every desktop-affecting class here is md:-prefixed to match exactly
-// what was there before).
-const VendorLayout = observer((props) => {
+// Sidebar shell for the admin portal, rendered instead of the customer Navbar on
+// every /admin/* route (see App.jsx). Structurally identical to VendorLayout -
+// same off-canvas mobile drawer below md, same static sidebar at md and up - just
+// with the admin nav items and pill label swapped in.
+const AdminLayout = observer((props) => {
   const { children } = props;
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -44,7 +47,7 @@ const VendorLayout = observer((props) => {
         <AppLogo size={24} />
         <span className="font-bold tracking-wide">{AppConstants.LOGO_TEXT}</span>
         <span className="text-[10px] font-semibold uppercase tracking-wide bg-white/10 rounded-full px-2 py-0.5 ml-auto">
-          Vendor
+          Admin
         </span>
       </div>
 
@@ -63,12 +66,12 @@ const VendorLayout = observer((props) => {
       >
         <div
           className="flex items-center gap-2 px-5 h-14 cursor-pointer select-none border-b border-white/10 shrink-0"
-          onClick={() => { navigate('/vendor/dashboard'); closeNav(); }}
+          onClick={() => { navigate('/admin/dashboard'); closeNav(); }}
         >
           <AppLogo size={26} />
           <span className="font-bold tracking-wide">{AppConstants.LOGO_TEXT}</span>
           <span className="text-[10px] font-semibold uppercase tracking-wide bg-white/10 rounded-full px-2 py-0.5 ml-auto">
-            Vendor
+            Admin
           </span>
           <button
             onClick={(e) => { e.stopPropagation(); closeNav(); }}
@@ -117,4 +120,4 @@ const VendorLayout = observer((props) => {
   )
 })
 
-export default VendorLayout;
+export default AdminLayout;

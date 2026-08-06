@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import vendorProfileStore from '../../stores/vendorProfileStore';
 import vendorPersonalStore from '../../stores/vendorPersonalStore';
-import VendorPageShell from '../../components/Vendor/VendorPageShell';
+import PageShell from '../../components/common/PageShell';
 import EditVendorProfileDialog from '../../components/Vendor/EditVendorProfileDialog';
 import EditVendorPersonalDialog from '../../components/Vendor/EditVendorPersonalDialog';
 import InfoRow from '../../components/UserDetails/InfoRow';
@@ -22,7 +22,7 @@ const VendorSettingsPage = observer(() => {
   );
 
   return (
-    <VendorPageShell header={header} className="max-w-2xl">
+    <PageShell header={header}>
       {/* Personal Details */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 mb-3">
         <div className="flex items-start justify-between mb-4">
@@ -82,7 +82,7 @@ const VendorSettingsPage = observer(() => {
 
       <EditVendorPersonalDialog />
       <EditVendorProfileDialog />
-    </VendorPageShell>
+    </PageShell>
   )
 })
 

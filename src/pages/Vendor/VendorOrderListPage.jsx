@@ -4,7 +4,7 @@ import vendorOrderStore from '../../stores/vendorOrderStore';
 import Pagination from '../../components/Pagination/Pagination';
 import FormDropdownField from '../../components/common/FormDropdownField';
 import OrderCard from '../../components/Vendor/OrderCard';
-import VendorPageShell from '../../components/Vendor/VendorPageShell';
+import PageShell from '../../components/common/PageShell';
 import { ORDER_STATUS_FILTER_OPTIONS } from '../../utils/vendorOrderConstants';
 
 const VendorOrderListPage = observer(() => {
@@ -21,7 +21,7 @@ const VendorOrderListPage = observer(() => {
   );
 
   return (
-    <VendorPageShell header={header}>
+    <PageShell header={header}>
       {vendorOrderStore.paginatedOrders.length === 0 ? (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-10 text-center text-sm text-gray-400">
           No orders found.
@@ -39,7 +39,7 @@ const VendorOrderListPage = observer(() => {
         totalPages={vendorOrderStore.totalPages}
         onPageChange={vendorOrderStore.setPage}
       />
-    </VendorPageShell>
+    </PageShell>
   )
 })
 

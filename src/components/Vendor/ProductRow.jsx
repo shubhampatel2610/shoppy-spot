@@ -3,8 +3,9 @@ import { observer } from 'mobx-react-lite';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import vendorProductStore, { LOW_STOCK_THRESHOLD } from '../../stores/vendorProductStore';
+import componentStore from '../../stores/componentStore';
 import { PRODUCT_STATUS_BADGE_CLASS } from '../../utils/vendorProductConstants';
-import StatusBadge from './StatusBadge';
+import StatusBadge from '../common/StatusBadge';
 
 // Single product row for VendorProductListPage - pulled into its own component so
 // the list page stays a thin list + the row's presentation is reusable/testable on its own.
@@ -17,6 +18,15 @@ import StatusBadge from './StatusBadge';
 const ProductRow = observer((props) => {
   const { product, onEdit, onDelete } = props;
   const isLowStock = product.stock < LOW_STOCK_THRESHOLD && product.status === 'active';
+  const isArchived = product.status === 'archived';
+
+  const handleToggleArchive = () => {
+    componentStore.openConfirmDialog({
+      header: isArchived ? 'Unarchive Product' : 'Archive Product',
+      message: `${isArchived ? 'Unarchive' : 'Archive'} "${product.title}"?`,
+      onConfirm: () => vendorProductStore.toggleArchive(product.id),
+    });
+  }
 
   return (
     <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 bg-white rounded-xl border border-gray-100 shadow-sm p-3 md:flex-wrap">
@@ -53,9 +63,9 @@ const ProductRow = observer((props) => {
         <div className="shrink-0 flex items-center gap-1">
           <Button icon="pi pi-pencil" aria-label="Edit" onClick={onEdit} text className="text-[#1e3a5f]" />
           <Button
-            icon={product.status === 'archived' ? 'pi pi-refresh' : 'pi pi-box'}
-            aria-label={product.status === 'archived' ? 'Unarchive' : 'Archive'}
-            onClick={() => vendorProductStore.toggleArchive(product.id)}
+            icon={isArchived ? 'pi pi-refresh' : 'pi pi-box'}
+            aria-label={isArchived ? 'Unarchive' : 'Archive'}
+            onClick={handleToggleArchive}
             text
             className="text-gray-500"
           />
