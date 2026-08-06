@@ -25,10 +25,10 @@ const LoginPage = observer(() => {
     e.preventDefault();
     const success = await authStore.login();
     if (success) {
-      // Landing page depends on role: customers go to the catalog, vendors go to
-      // their dashboard, anything else has no home yet.
+      // Landing page depends on role: customers go to the catalog, vendors and
+      // admins go to their respective dashboards.
       const role = authStore.currentUser?.role;
-      const destination = role === 'customer' ? '/' : role === 'vendor' ? '/vendor/dashboard' : '/unauthorized';
+      const destination = role === 'customer' ? '/' : role === 'vendor' ? '/vendor/dashboard' : role === 'admin' ? '/admin/dashboard' : '/unauthorized';
       navigate(destination, { replace: true });
     }
   }
