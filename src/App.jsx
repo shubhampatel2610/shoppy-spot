@@ -1,5 +1,7 @@
 import React from 'react';
-import { Routes, Route, Outlet, useLocation } from 'react-router-dom';
+import { Routes, Route, Outlet, Navigate, useLocation } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import authStore from './stores/authStore';
 import Navbar from './components/Navbar/Navbar';
 import ProductListingPage from './pages/ProductListingPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -36,6 +38,28 @@ import AdminSettingsPage from './pages/Admin/AdminSettingsPage';
 // Routes that render their own full-page layout, without the shared navbar.
 const NAVBAR_HIDDEN_ROUTES = ['/login', '/signup', '/unauthorized'];
 
+// "/" is the landing route: send guests to login, and send logged-in users to
+// their role's home page (customers stay here and see the catalog, vendors and
+// admins go to their respective dashboards) instead of showing them an
+// "unauthorized" page for a role mismatch.
+const HomeRedirect = observer(() => {
+  if (!authStore.isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  const role = authStore.currentUser?.role;
+  if (role === 'customer') {
+    return <ProductListingPage />;
+  }
+  if (role === 'vendor') {
+    return <Navigate to="/vendor/dashboard" replace />;
+  }
+  if (role === 'admin') {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+  return <Navigate to="/unauthorized" replace />;
+})
+
 const App = () => {
   const location = useLocation();
   const isVendorRoute = location.pathname.startsWith('/vendor');
@@ -48,8 +72,8 @@ const App = () => {
       <LoginRequiredDialog />
       <ConfirmDialog />
       <Routes>
+        <Route path="/" element={<HomeRedirect />} />
         <Route element={<ProtectedRoute allowedRoles={['customer']}><Outlet /></ProtectedRoute>}>
-          <Route path="/" element={<ProductListingPage />} />
           <Route path="/product/:productId" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
